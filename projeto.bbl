@@ -1,0 +1,152 @@
+\begin{thebibliography}{21}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+\newcommand{\enquote}[1]{``#1''}
+
+\bibitem[\MakeUppercase{{Cisco}}({2014}){Cisco}]{ciscoforecast}
+\MakeUppercase{{Cisco}}.
+\newblock \enquote{Cisco Visual Networking Index: Forecast and Methodology,
+  2013–2018}. .
+\newblock
+  \url{http://www.cisco.com/c/en/us/solutions/collateral/service-provider/ip-ngn-ip-next-generation-network/white_paper_c11-481360.html},
+  jun. {2014}.
+
+\bibitem[\MakeUppercase{{Institute of Electrical and Electronics Engineers
+  (IEEE)}}(2005){Institute of Electrical and Electronics Engineers
+  (IEEE)}]{ieee80222}
+\MakeUppercase{{Institute of Electrical and Electronics Engineers (IEEE)}}.
+\newblock \emph{Functional Requirements for IEEE 802.22 WRAN Standard,
+  802.22/05-0007r46}.
+\newblock Relat{\'o}rio t{\'e}cnico, set. 2005.
+
+\bibitem[\MakeUppercase{{Internet Engineering Task Force
+  (IETF)}}(2013){Internet Engineering Task Force (IETF)}]{RFC6953}
+\MakeUppercase{{Internet Engineering Task Force (IETF)}}.
+\newblock \enquote{Protocol to Access White-Space (PAWS) Databases: Use Cases
+  and Requirements}. .
+\newblock \url{http://www.ietf.org/rfc/rfc6953.txt}, may 2013.
+
+\bibitem[\MakeUppercase{{Google}}({\natexlab{a}}){Google}]{googlespectrumdatabase}
+\MakeUppercase{{Google}}.
+\newblock \enquote{Spectrum Database}. .
+\newblock \url{https://www.google.com/get/spectrumdatabase/channel/},
+  {\natexlab{a}}.
+\newblock Acessado em fevereiro de 2014.
+
+\bibitem[\MakeUppercase{{Marcelo Rocha Machado}}(2013){Marcelo Rocha
+  Machado}]{tccmarcelo}
+\MakeUppercase{{Marcelo Rocha Machado}}.
+\newblock \emph{Banco de Dados de Disponibilidade de Espectro para Radios
+  Cognitivos"}.
+\newblock Relat{\'o}rio t{\'e}cnico, Apr. 2013.
+
+\bibitem[\MakeUppercase{{Federal Communications Commission (FCC)}}(){Federal
+  Communications Commission (FCC)}]{fccalloc}
+\MakeUppercase{{Federal Communications Commission (FCC)}}.
+\newblock \enquote{FCC ONLINE TABLE OF FREQUENCY ALLOCATIONS}. .
+\newblock \url{http://transition.fcc.gov/oet/spectrum/table/fcctable.pdf}.
+\newblock Acessado em fevereiro de 2013.
+
+\bibitem[\MakeUppercase{{ANATEL}}(){ANATEL}]{channelstable}
+\MakeUppercase{{ANATEL}}.
+\newblock \enquote{Consulta de Canais}. .
+\newblock
+  \url{http://sistemas.anatel.gov.br/siscom/consplanobasico/default.asp?SISQSmodulo=2605}.
+\newblock Acessado em Fevereiro de 2014.
+
+\bibitem[res()]{restlet}
+\enquote{Restlet}. .
+\newblock \url{http://restlet.org/}.
+\newblock Acessado em fevereiro de 2013.
+
+\bibitem[\MakeUppercase{{HERE}}(){HERE}]{heremaps}
+\MakeUppercase{{HERE}}.
+\newblock \enquote{Javascript API}. .
+\newblock \url{https://developer.here.com/javascript-apis}.
+\newblock Acessado em Fevereiro de 2014.
+
+\bibitem[\MakeUppercase{Rappaport}(2001)Rappaport]{rapapport}
+\MakeUppercase{Rappaport, T.~S.}
+\newblock \emph{{Wireless Communications: Principles and Practice}}.
+\newblock 2 ed. , {Prentice Hall}, 2001.
+\newblock ISBN: 9780130422323.
+
+\bibitem[\MakeUppercase{{A. G. Longley, P. L. Rice}}(1968){A. G. Longley, P. L.
+  Rice}]{longleyrice}
+\MakeUppercase{{A. G. Longley, P. L. Rice}}.
+\newblock \emph{Prediction of tropospheric radio transmission loss over
+  irregular terrain. A computer method-1968}.
+\newblock Relat{\'o}rio t{\'e}cnico, jul. 1968.
+\newblock Acessado em Fevereiro de 2015.
+
+\bibitem[\MakeUppercase{{A. G. Longley, P. L. Rice, W. A. Kissick}}(1982){A. G.
+  Longley, P. L. Rice, W. A. Kissick}]{longleyricedelta}
+\MakeUppercase{{A. G. Longley, P. L. Rice, W. A. Kissick}}.
+\newblock \emph{A Guide to the Use of the ITS Irregular Terrain Model in the
+  Area Prediction Mode}.
+\newblock Relat{\'o}rio t{\'e}cnico, apr. 1982.
+\newblock Acessado em Fevereiro de 2015.
+
+\bibitem[\MakeUppercase{e~Sam~Ruby}(2007)e~Sam~Ruby]{restful}
+\MakeUppercase{e~Sam~Ruby, L.~R.}
+\newblock \emph{{RESTful Web Services}}.
+\newblock 1 ed. , {O'Reillyl}, 2007.
+\newblock ISBN: 9780596528260.
+
+\bibitem[\MakeUppercase{{Internet Engineering Task Force
+  (IETF)}}(1999){Internet Engineering Task Force (IETF)}]{RFC2616}
+\MakeUppercase{{Internet Engineering Task Force (IETF)}}.
+\newblock \enquote{Hypertext Transfer Protocol -- HTTP/1.1}. .
+\newblock \url{http://www.ietf.org/rfc/rfc2616.txt}, jun. 1999.
+
+\bibitem[ecl()]{eclipse}
+\enquote{Eclipse}. .
+\newblock \url{http://www.eclipse.org/}.
+\newblock Acessado em fevereiro de 2013.
+
+\bibitem[\MakeUppercase{{Oracle}}(){Oracle}]{vmbox}
+\MakeUppercase{{Oracle}}.
+\newblock \enquote{Oracle VM BOX}. .
+\newblock
+  \url{http://www.oracle.com/technetwork/server-storage/virtualbox/downloads/index.html}.
+\newblock Acessado em fevereiro de 2013.
+
+\bibitem[\MakeUppercase{Cooper}(2000)Cooper]{cooper2000java}
+\MakeUppercase{Cooper, J.~W.}
+\newblock \emph{Java design patterns}.
+\newblock Addison-Wesley Professional, 2000.
+
+\bibitem[\MakeUppercase{{Agência Nacional de Telecomunicações
+  (ANATEL)}}(){Agência Nacional de Telecomunicações (ANATEL)}]{siscom}
+\MakeUppercase{{Agência Nacional de Telecomunicações (ANATEL)}}.
+\newblock \enquote{Sistema de Informação dos Serviços de Comunicação de
+  Massa}. .
+\newblock
+  \url{http://sistemas.anatel.gov.br/siscom//ConsPlanoBasico/ListaArquivos.asp?SISQSmodulo=14611}.
+\newblock Acessado em fevereiro de 2013.
+
+\bibitem[\MakeUppercase{{Google}}({\natexlab{b}}){Google}]{elevation}
+\MakeUppercase{{Google}}.
+\newblock \enquote{Google Elevation API}. .
+\newblock
+  \url{https://developers.google.com/maps/documentation/elevation/?hl=pt-br},
+  {\natexlab{b}}.
+\newblock Acessado em fevereiro de 2013.
+
+\bibitem[\MakeUppercase{{Google}}({\natexlab{c}}){Google}]{KML}
+\MakeUppercase{{Google}}.
+\newblock \enquote{Keyhole Markup Language}. .
+\newblock \url{https://developers.google.com/kml/documentation/?hl=pt-BR},
+  {\natexlab{c}}.
+\newblock Acessado em fevereiro de 2013.
+
+\bibitem[\MakeUppercase{{Google}}({\natexlab{d}}){Google}]{gearth}
+\MakeUppercase{{Google}}.
+\newblock \enquote{Google Earth}. .
+\newblock \url{http://www.google.com/earth/index.html}, {\natexlab{d}}.
+\newblock Acessado em fevereiro de 2013.
+
+\end{thebibliography}

@@ -1,0 +1,75 @@
+\chapter{Conclusão e Trabalhos Futuros}
+
+\section{Conclusão}
+
+	O sistema desenvolvido consegue atingir o objetivo proposto. Seu formato modular facilita a modificação de alguma parte específica do software, o que facilita futuros trabalhos e aprimoramentos. Além disso, sua API permite a busca por diversas informações sobre dispositivos primários que pode ser utilizada em outras pesquisas. Como é possível implementar novos modelos de propagação, e buscar dados desses modelos aplicados a dispositivos primários reais, novas possibilidades de pesquisa são abertas.
+
+\section{Trabalhos Futuros}
+
+O objetivo desse trabalho foi estabelecer um marco inicial para futuros trabalhos no campo de BDWS. No entanto, para poder criar de fato uma base de dados confiável, para prover um serviço para dispositivos reais, ainda existe muito trabalho a ser feito. 
+
+A seguir serão enumeradas, em ordem de importância, maneiras de dar continuidade a esse trabalho.
+
+\subsection{Parceria com a ANATEL}
+
+	Quem define as regras para o uso do espectro de frequências, no Brasil, é a ANATEL. Assim, a BDWS desenvolvida deve receber um aval dela para funcionar. Além disso, é de interesse da agência reguladora saber como o espectro está sendo utilizado. 
+
+	Como já foi ressaltado pelos outros capítulos, a informação sobre dispositivos primários existentes deve ser confiável. Além disso, a base desenvolvida deve levar em considerações regras impostas pela agência reguladora. Suponha que a ANATEL reserve uma determinada banda para microfones sem fio, ou até mesmo bloqueie o uso de um determinado canal de frequência. 
+
+	Para que a base seja devidamente alterada com as regras e reservas feitas pela agência, um canal de comunicação deve ser estabelecido. A base deve poder buscar periodicamente informações sobre os dispositivos com a ANATEL, bem como receber mensagens sobre novas regras que devem ser utilizadas no momento do cálculo de disponibilidade de canais.
+
+	Para poder atender a esses pontos é de extrema importância firmar uma parceria com a ANATEL. Essa parceria é essencial para o funcionamento de um BDWS.	
+
+É proposto que nessa parceria:
+
+\begin{itemize}
+\item Seja desenvolvido, um Web Service para disponibilizar todas as informações disponíveis sobre os dispositivos primários. Dessa forma a carga não precisará ser manual.
+\item Seja realizado uma revisão dos dados já presentes no portal da agência reguladora. É importante garantir que as informações lá presentes estejam corretas. Se possível, as informações de latitude e longitude dos dispositivos primários devem ser convertidas para um formato mais preciso.
+\item Seja acordado, com a ANATEL, um método para que ela informe a base alterações emergenciais que devem ser feitas, bem como a criação de regras para o cálculo de disponibilidade.
+\end{itemize}
+
+	Um Web Service que disponibilize as informações da ANATEL é de interesse não só da base mas também de qualquer outro grupo de pesquisa que deseje realizar trabalhos utilizando valores reais. 
+
+	O método de comunicação da ANATEL com a base poderia ser outro Web Service. Ele, porém, terá de ser protegido, já que deve ser acessado apenas pela agência.
+
+	Podem existir algumas considerações e mudanças propostas pela ANATEL ao sistema. Tais mudanças devem ser implementadas.
+
+
+\subsection{Cálculo de Disponibilidade}
+
+	Na base desenvolvida, os cálculos realizados para determinar o alcance das antenas, e por consequência a disponibilidade de canais, foi bastante simplificado. Foram desenvolvidos apenas três modelos de propagação, e algumas considerações foram feitas para simplificar o seu cálculo.
+
+	Uma vez que a base esteja povoada com informações confiáveis, será necessário aprimorar o método utilizado para calcular o alcance das antenas. Para isso deve ser implementado um modelo de propagação adequado. Ele deve ser mais complexo e levar em consideração, entre outros fatores, o terreno ao redor das antenas.
+
+	Além disso, como um dos objetivos da base é prover uma base para pesquisas, outros modelos de propagação também devem ser implementados de forma a aumentar as possibilidades de pesquisa.
+
+\subsubsection{Verificação de resultados}
+
+	É interessante comparar os resultados da base com os valores reais. Para isso, seria necessário um trabalho de medição de canais disponíveis. Isso seria feito com um trabalho de campo, escolhendo alguns pontos do estado do Rio de Janeiro e comparar, os canais que realmente estão disponíveis, como indicado pela medição, e os canais indicados pela base como disponíveis.
+
+	Esse tipo de trabalho é importante já que confirma a eficácia da base ao compará-la com valores coletados em campo.
+
+\subsection{PAWS}
+
+	Embora o PAWS ainda esteja em processo de desenvolvimento, já é possível identificar como é o seu modo de funcionamento, bem como as regras para sua implantação. É interessante que a base venha a aderir aos padrões internacionais de BDWS, que está sendo proposto nesse protocolo.
+
+	Assim sendo, deve-se, futuramente, implantar o PAWS no sistema desenvolvido. Devido à modularidade do sistema, esse protocolo seria facilmente implementado, já que ele define apenas o modo de comunicação entre base e dispositivos clientes.
+
+
+\subsection{Geolocalização}
+
+	A base de dados recebe como informação de localização a latitude e longitude do dispositivo. Poderia ser utilizado, também, um serviço de geolocalização de forma que um cliente pudesse informar seu endereço ao invés das coordenadas geográficas. Isso seria possível com o uso de um serviço de geolocalização, que transforma um endereço físico em um par de coordenadas polares. Esse serviço é chamado geocodificação.
+
+	Existem alguns serviços disponíveis para o uso pela internet, como é o caso do GeoNames mencionado no capítulo anterior. Entretanto, estes serviços apresentam um limite de uso diário, que pode ser estendido na compra de um pacote. De forma a garantir um uso ininterrupto desse tipo de serviço, a geolocalização poderia ser implementada no próprio sistema.
+
+	Existem algumas soluções open source que poderiam ser utilizadas como o Gisgraphy~\cite{gisgraphy}.
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,69 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: projeto.aux
+A level-1 auxiliary file: thanks.aux
+A level-1 auxiliary file: resumo.aux
+A level-1 auxiliary file: abstract.aux
+A level-1 auxiliary file: chap01.aux
+A level-1 auxiliary file: chap02.aux
+A level-1 auxiliary file: chap03.aux
+The style file: coppetex/coppe-unsrt.bst
+Database file #1: projeto.bib
+Warning--I didn't find a database entry for "canaliza"
+Warning--empty institution in ieee80222
+Warning--empty year in googlespectrumdatabase
+Warning--empty institution in tccmarcelo
+Warning--empty year in fccalloc
+Warning--empty year in channelstable
+Warning--empty year in restlet
+Warning--empty year in heremaps
+Warning--empty institution in longleyrice
+Warning--empty institution in longleyricedelta
+Warning--empty year in eclipse
+Warning--empty year in vmbox
+Warning--empty year in siscom
+Warning--empty year in elevation
+Warning--empty year in KML
+Warning--empty year in gearth
+You've used 21 entries,
+            2628 wiz_defined-function locations,
+            645 strings with 6549 characters,
+and the built_in function-call counts, 5888 in all, are:
+= -- 495
+> -- 133
+< -- 19
++ -- 83
+- -- 38
+* -- 394
+:= -- 844
+add.period$ -- 90
+call.type$ -- 21
+change.case$ -- 27
+chr.to.int$ -- 18
+cite$ -- 38
+duplicate$ -- 383
+empty$ -- 676
+format.name$ -- 57
+if$ -- 1267
+int.to.chr$ -- 4
+int.to.str$ -- 22
+missing$ -- 6
+newline$ -- 127
+num.names$ -- 57
+pop$ -- 256
+preamble$ -- 1
+purify$ -- 21
+quote$ -- 0
+skip$ -- 176
+stack$ -- 0
+substring$ -- 58
+swap$ -- 105
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 138
+warning$ -- 15
+while$ -- 38
+width$ -- 0
+write$ -- 281
+(There were 16 warnings)

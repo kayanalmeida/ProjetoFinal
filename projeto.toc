@@ -1,0 +1,22 @@
+\select@language {brazil}
+\select@language {english}
+\select@language {brazil}
+\contentsline {chapter}{Lista de Figuras}{viii}{chapter*.3}
+\contentsline {chapter}{Lista de Tabelas}{ix}{chapter*.4}
+\contentsline {chapter}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Motiva\IeC {\c c}\IeC {\~a}o}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Objetivo}{4}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Metodologia}{4}{subsection.1.2.1}
+\contentsline {chapter}{\numberline {2}Implementa\IeC {\c c}\IeC {\~a}o da Base de Dados}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Tecnologias Utilizadas}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Arquitetura do Servidor}{6}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}C\IeC {\'a}lculo dos Canais Dispon\IeC {\'\i }veis}{6}{subsection.2.2.1}
+\contentsline {subsubsection}{Modelos de Propaga\IeC {\c c}\IeC {\~a}o Implementados}{7}{section*.5}
+\contentsline {subsubsection}{Free Space}{8}{section*.6}
+\contentsline {subsubsection}{Two Ray Ground}{9}{section*.7}
+\contentsline {subsubsection}{Log Distance}{10}{section*.8}
+\contentsline {subsubsection}{Constantes}{11}{section*.9}
+\contentsline {section}{\numberline {2.3}Extens\IeC {\~a}o dos modelos}{11}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Longley-Rice}{11}{subsection.2.3.1}
+\contentsline {subsubsection}{Par\IeC {\^a}metros de Entrada}{12}{section*.10}
+\contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{13}{chapter*.11}
