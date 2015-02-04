@@ -1,3 +1,4 @@
+% !TeX spellcheck = en_US
 
 \chapter{Implementação da Base de Dados}
 
@@ -219,6 +220,7 @@ Os modelos implementados não levam em conta a perda causada pelo relevo, o que 
 Também conhecido como Irregular Terrain Model (ITM)\abbrev{ITM}{Irregular Terrain Model}, este modelo foi publicado por A. G. Longley e P. L. Rice em 1968.~\cite{longleyrice} Utilizado para frequências entre 20 MHz até 20GHz, foi criado para atender às necessidades do planejamento de frequências na transmissão de televisão nos Estados Unidos.
 
 O Longley-Rice é capaz de predizer a atenuação de dois modos diferentes: O modo área e o modo ponto-a-ponto. O modo área utiliza informações médias do perfil do terreno para realizar o cálculo da atenuação. Já o modo ponto-a-ponto utiliza informações específicas do caminho entre o transmissor e o receptor para realização o cálculo da atenuação.
+Também possui estimativas da variabilidade do tempo e localização.
 
 \subsubsection{Parâmetros de Entrada}
 
@@ -260,7 +262,7 @@ Montanhas                    & 500
 \end{tabular}
 \end{table}
 
-No artigo original do modelo~\cite{longleyrice}, as previsões foram testadas para um certo intervalo de valores, onde o modelo provou-se eficiente. Os parâmetros e seus respectivos intervalos estão listados na tabela abaixo:\\
+No artigo original do modelo~\cite{longleyrice}, um programa foi apresentado e as previsões da atenuação do sinal foram testadas para um certo intervalo de valores de entrada, onde o modelo provou-se eficiente. Os parâmetros e seus respectivos intervalos estão listados na tabela~\ref{table:longleyricevaluesinterval}:\\
 
 \begin{table}[h]
 \centering
@@ -277,7 +279,7 @@ Refratividade da Superfície & 250 a 400 N-unidades
 \end{tabular}
 \end{table}
 
-A polarização da antena pode ser horizontal ou vertical e afeta o valor da impedância da superfície \begin{math}Z_g\end{math}.
+A polarização da antena pode ser horizontal ou vertical e afeta o valor da impedância da superfície \begin{math}Z_g\end{math}, ibtida pela análise da permissividad e condutividade do solo em relação à polarização das ondas. A impedância característica do solo em relação a sua polarização é apresentada a seguir:
 
 
 \[ Z_g = \begin{cases} 
@@ -293,7 +295,7 @@ onde \begin{math}\epsilon_r'\end{math} é a Permissividade relativa complexa, de
 \[
 Z_0 = 376.62 \textrm{ ohm.}
 \]
-A condutividade do solo $\sigma$ é expressa em siemens por metro. Seus valores podem ser~\cite{longleyricedelta}:
+A condutividade do solo $\sigma$ é expressa em siemens por metro. Seus possíveis valores podem são apresentados na tabela ~\ref{table:sigmainterval}
 
 \begin{table}[h]
 \caption[Valores para a permissividade relativa e condutividade do solo.]
@@ -329,14 +331,36 @@ onde
 \[
 N_1 = 179.3 \text{ N-unidades, e } \gamma_a = 157 . 10^-9 \text{ m} ^-1 = 157 \text{ N-unidades/km.}
 \]
-
-Para simplificar a sua representação, a refratividade da superfície \begin{math}N_s\end{math} é definida em termos de \begin{math}N_0\end{math}, a refratividade da superfície reduzida ao nível do mar.
+A refratividade da superfície \begin{math}N_s\end{math} é obtida a partir da análise das condições atmosféricas, como a temperatura, pressão e umidade relativa. Esse valor determina quantidade de sinal que é refratado pela atmosfera.
+Para simplificar a sua representação, a refratividade da superfície  é definida em termos de \begin{math}N_0\end{math}, a refratividade da superfície reduzida ao nível do mar.
 
 \[
 N_s = N_0e^{-z_s/z_1} \,\,\,\,\, \text{ sendo} \,\,\,\,\,\,\,\,\, z_1 = 9.46 \text{ km }
 \]
+Onde \begin{math}z_s\end{math} é a elevação geral da região envolvida. Para o modo ponto-a-ponto, esse valor é a média aritmética das elevações no caminho entre o transmissor e o receptor.
+Ao reduzirmos a refratividade da superfície ao nível do mar, podemos utilizar o mapa presente no relatório ~\cite{longleyricedelta} para obter um valor válido para \begin{math}N_s\end{math}. Os valores são apresentados na figura.~\ref{fig:nsmap} Esses dados podem ser resumidos em função do clima da região em estudo, listados na tabela ~\ref{table:climatetable}.
 
-Ao reduzirmos a refratividade da superfície ao nível do mar, podemos utilizar o mapa presente no relatório ~\cite{longleyricedelta} para obter um valor válido para \begin{math}N_s\end{math}. Os valores são apresentados na figura ~\ref{fig:nsmap}
+
+
+\begin{table}[h]
+\centering
+\caption[Refratividade da superfície em função do clima da região.]
+{Refratividade da superfície em função do clima da região.}
+\label{table:climatetable}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lc}
+\hline
+Clima                       & Refratividade da superfície (N-unidades) \\ \hline
+Deserto                     & 280                                    \\
+Continental Temperado       & 301                                    \\
+Continental Sub-tropical    & 320                                    \\
+Marítimo Temperado          & 320                                    \\
+Marítimo temperado sobre o mar & 350                                    \\
+Equatorial                  & 360                                    \\
+Marítimo Sub-tropical       & 370                                    \\
+\end{tabular}
+}
+\end{table}
 
 \begin{figure}[nsmap]
 \centering
@@ -346,7 +370,28 @@ Ao reduzirmos a refratividade da superfície ao nível do mar, podemos utilizar 
 \label{fig:nsmap}
 \end{figure}
 
-%\subsubsection{Parâmetros adicionais para o modo ponto-a-ponto}
+\subsubsection{Parâmetros adicionais}
+
+Cada modo depende de diferentes parâmetros de entrada. Nesse trabalho foi implementado o modo ponto-a-ponto, no qual as informações do relevo entre o transmissor e o receptor são conhecidos.  
+As variáveis adicionais utilizadas pelo algoritmo são:
+
+\begin{itemize}
+\item \begin{math}h_{eb}, h_{em}\end{math} Alturas efetivas das antenas
+\item \begin{math}d_{lb},d_{lm}\end{math} Distância de cada dispositivo ao seu horizonte de radio
+\item \begin{math}\theta_{eb}, \theta_{em}\end{math} Ângulos de elevação dos horizontes de cada dispositivo na altura das antenas
+\end{itemize}
+
+No modo área, esses valores são aproximados utilizando uma fórmila empírica na qual $\Deltah$ influencia fortemente.
+A altura efetiva de uma antena é a altura acima de um plano refletor, os valores podem ser encontrados na figura ~\ref{fig:radiohorizon}~\cite{irregularterrain}, 
+
+\begin{figure}[radiohorizon]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/radiohorizon}
+\caption[Variáveis do modo ponto-a-ponto.]
+{Variáveis do modo ponto-a-ponto.}
+\label{fig:radiohorizon}
+\end{figure}
+
 %
 %\subsubsection{API Desenvolvida}
 %
