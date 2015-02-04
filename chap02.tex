@@ -235,8 +235,13 @@ Para ambos os modos, os parâmetros listados abaixo são necessários:
 \item clima Expresso qualitativamente com um número para denotar um tipo de clima discreto
 \end{itemize}
 
+Para obtermos o número de onda, basta aplicarmos a fórmula:
 
-O parâmetro de irregularidade do terreno pode ser obtido na tabela~\ref{table:deltah}.
+\[
+k = 2\pi/\lambda = f/f_0 \,\,\,\,\, \text{ sendo} \,\,\,\,\,\,\,\,\, f_0 = 47.70 \text{ MHz . m }
+\]
+
+O parâmetro de irregularidade do terreno pode ser obtido na tabela~\ref{table:deltah}. \\
 
 \begin{table}[h]
 \centering
@@ -255,7 +260,7 @@ Montanhas                    & 500
 \end{tabular}
 \end{table}
 
-No artigo original do modelo~\cite{longleyrice}, as previsões foram testadas em um certo intervalo de valores, onde o modelo comprovou-se eficiente. Os parâmetros e seus intervalos estão listados abaixo:
+No artigo original do modelo~\cite{longleyrice}, as previsões foram testadas para um certo intervalo de valores, onde o modelo provou-se eficiente. Os parâmetros e seus respectivos intervalos estão listados na tabela abaixo:\\
 
 \begin{table}[h]
 \centering
@@ -271,6 +276,75 @@ Distância                   & 1 a 2,000 km         \\
 Refratividade da Superfície & 250 a 400 N-unidades
 \end{tabular}
 \end{table}
+
+A polarização da antena pode ser horizontal ou vertical e afeta o valor da impedância da superfície \begin{math}Z_g\end{math}.
+
+
+\[ Z_g = \begin{cases} 
+      \sqrt{\epsilon_r' - 1} & \textrm{ Polarização horizontal} \\
+      \frac{\sqrt{\epsilon_r' - 1}}{\epsilon_r'} & \textrm{ Polarização vertical} \\
+   \end{cases} \]
+
+onde \begin{math}\epsilon_r'\end{math} é a Permissividade relativa complexa, definida por:
+
+\[ 
+\epsilon_r' = \epsilon_r + i Z_0\sigma/k
+\]
+\[
+Z_0 = 376.62 \textrm{ ohm.}
+\]
+A condutividade do solo $\sigma$ é expressa em siemens por metro. Seus valores podem ser~\cite{longleyricedelta}:
+
+\begin{table}[h]
+\caption[Valores para a permissividade relativa e condutividade do solo.]
+{Valores para a permissividade relativa e condutividade do solo.}
+\label{table:sigmainterval}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcc} \\
+\hline
+            & Permissividade Relativa & Condutividade (Siemens por metro) \\ \hline
+Solo médio  & 15                      & 0.005                             \\
+Solo pobre  & 4                       & 0.001                             \\
+Solo bom    & 25                      & 0.020                             \\
+Água fresca & 81                      & 0.010                             \\
+Água do mar & 81                      & 5.0                              
+\end{tabular}
+}
+\end{table}
+
+A curvatura efetiva da terra $\gamma_e$ pode ser obtida através da fórmula:
+
+\[
+\gamma_e = \gamma_a/K
+\]
+
+Onde $\gamma_a$ é a curvatura real da terra e $K$ é o fator de raio efetivo da Terra. O valor normalmente é obtido através de sua formúla empírica:
+\[
+\gamma_e = \gamma_a(1-0.04665e^{N_s/N_1})
+\]
+
+onde
+
+\[
+N_1 = 179.3 \text{ N-unidades, e } \gamma_a = 157 . 10^-9 \text{ m} ^-1 = 157 \text{ N-unidades/km.}
+\]
+
+Para simplificar a sua representação, a refratividade da superfície \begin{math}N_s\end{math} é definida em termos de \begin{math}N_0\end{math}, a refratividade da superfície reduzida ao nível do mar.
+
+\[
+N_s = N_0e^{-z_s/z_1} \,\,\,\,\, \text{ sendo} \,\,\,\,\,\,\,\,\, z_1 = 9.46 \text{ km }
+\]
+
+Ao reduzirmos a refratividade da superfície ao nível do mar, podemos utilizar o mapa presente no relatório ~\cite{longleyricedelta} para obter um valor válido para \begin{math}N_s\end{math}. Os valores são apresentados na figura ~\ref{fig:nsmap}
+
+\begin{figure}[nsmap]
+\centering
+\includegraphics[width=0.8\textwidth]{figs/nsmap}
+\caption[Refratividade média da superfície reduzida ao nível do mar.]
+{Refratividade média da superfície reduzida ao nível do mar.}
+\label{fig:nsmap}
+\end{figure}
 
 %\subsubsection{Parâmetros adicionais para o modo ponto-a-ponto}
 %
