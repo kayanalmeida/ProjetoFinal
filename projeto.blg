@@ -17,46 +17,46 @@ Warning--empty year in restlet
 Warning--empty year in heremaps
 Warning--empty institution in longleyrice
 Warning--empty institution in longleyricedelta
-Warning--empty institution in irregularterrain
-You've used 13 entries,
+Warning--empty institution in vogler
+You've used 14 entries,
             2628 wiz_defined-function locations,
-            608 strings with 5697 characters,
-and the built_in function-call counts, 3661 in all, are:
-= -- 306
-> -- 95
-< -- 11
-+ -- 54
-- -- 28
-* -- 259
-:= -- 548
-add.period$ -- 53
-call.type$ -- 13
-change.case$ -- 19
-chr.to.int$ -- 13
-cite$ -- 24
-duplicate$ -- 236
-empty$ -- 398
-format.name$ -- 40
-if$ -- 767
+            613 strings with 5811 characters,
+and the built_in function-call counts, 3930 in all, are:
+= -- 326
+> -- 102
+< -- 12
++ -- 58
+- -- 30
+* -- 276
+:= -- 584
+add.period$ -- 56
+call.type$ -- 14
+change.case$ -- 20
+chr.to.int$ -- 14
+cite$ -- 25
+duplicate$ -- 254
+empty$ -- 432
+format.name$ -- 43
+if$ -- 826
 int.to.chr$ -- 1
-int.to.str$ -- 14
+int.to.str$ -- 15
 missing$ -- 2
-newline$ -- 81
-num.names$ -- 36
-pop$ -- 144
+newline$ -- 85
+num.names$ -- 39
+pop$ -- 158
 preamble$ -- 1
-purify$ -- 13
+purify$ -- 14
 quote$ -- 0
-skip$ -- 110
+skip$ -- 121
 stack$ -- 0
-substring$ -- 34
-swap$ -- 65
+substring$ -- 37
+swap$ -- 70
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 88
+type$ -- 95
 warning$ -- 10
-while$ -- 24
+while$ -- 26
 width$ -- 0
-write$ -- 174
+write$ -- 184
 (There were 10 warnings)

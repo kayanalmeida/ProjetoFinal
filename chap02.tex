@@ -28,7 +28,9 @@ como linguagem de estilo. Para realização de requisições assíncronas ao ser
 
 Como citado na seção anterior, o servidor realiza a consulta ao banco de dados e obtém as informações dos UPs, em seguida aplica um dos modelos de propagação implementados e retorna uma lista com os canais livres baseada na posição geográfica do US.
 
-\subsection{Cálculo dos Canais Disponíveis}
+ENTRAR COM MAIS INFORMAÇÕES DA BASE, ESTRUTURA DAS TABELAS E CLASSES
+
+\section{Cálculo dos Canais Disponíveis}
 
 O servidor consulta o banco de dados e coleta as informações das antenas presentes no Estado do Rio de Janeiro. A partir de sua altura e potência, calcula-se o alcance máximo para cada antena, dependendo do modelo de propagação do sinal. O alcance máximo é definido como: "A distância máxima da base da antena que um dispositivo pode estar para receber o sinal transmitido por ela com uma relação sinal/ruído mínima. Assume-se que o dispositivo não sofre nenhuma interferência além de duas vezes ruído de fundo". Os dispositivos que possuírem uma distância menor que o raio da antena, receberão o sinal com qualidade suficiente. Já os dispositivos com distancia da antena maior que seu raio, estarão fora do alcance da mesma, podendo utilizar esse canal para transmissão de seus dados. Essa condição é necessária para que um US possa transmitir dados nessa frequência sem causar interferências.
 
@@ -217,10 +219,14 @@ Os modelos implementados não levam em conta a perda causada pelo relevo, o que 
 
 \subsection{Longley-Rice}
 
-Também conhecido como Irregular Terrain Model (ITM)\abbrev{ITM}{Irregular Terrain Model}, este modelo foi publicado por A. G. Longley e P. L. Rice em 1968.~\cite{longleyrice} Utilizado para frequências entre 20 MHz até 20GHz, foi criado para atender às necessidades do planejamento de frequências na transmissão de televisão nos Estados Unidos.
+Também conhecido como Irregular Terrain Model (ITM)\abbrev{ITM}{Irregular Terrain Model}, este modelo foi proposto para frequências entre 20 MHz a 20GHz, para alturas distintas de antenas transmissoras e receptoras. Dada a frequência, altura das antenas e uma estimativa da irregularidade do terreno, o modelo retorna um valor de referência para a atenuação do sinal. Foi bastante utilizado no auxílio de instalação de redes de telecomunicações, em especial os sistemas de televisão e rádiodifusão na alocação de canais de transmissão Very High Frequency(VHF)
+\abbrev{VHF}{Very High Frequency} 
+e Ultra High Frequency(UHF)
+\abbrev{UHF}{UHF High Frequency}.
 
-O Longley-Rice é capaz de predizer a atenuação de dois modos diferentes: O modo área e o modo ponto-a-ponto. O modo área utiliza informações médias do perfil do terreno para realizar o cálculo da atenuação. Já o modo ponto-a-ponto utiliza informações específicas do caminho entre o transmissor e o receptor para realização o cálculo da atenuação.
-Também possui estimativas da variabilidade do tempo e localização.
+Publicado em 1968 por Anita Longley e Phil Rice, esse modelo foi proposto para ser utilizado em um computador e foi criado de forma a abranger diversas combinações de frequências, distâncias, terrenos e climas para ambas polarizações - vertical e horizontal- de uma antena~\cite{longleyrice}.
+
+O Longley-Rice é capaz de predizer a atenuação de dois modos diferentes: o modo área e o modo ponto-a-ponto. O modo área utiliza informações médias de um perfil do terreno para realizar o cálculo da atenuação. Já o modo ponto-a-ponto utiliza informações específicas do caminho entre o transmissor e o receptor para realização o cálculo da atenuação.
 
 \subsubsection{Parâmetros de Entrada}
 
@@ -261,6 +267,12 @@ Serras                       & 200               \\
 Montanhas                    & 500               
 \end{tabular}
 \end{table}
+
+
+O valor do parâmetro de irregularidade varia em função da distância, seguindo a equação abaixo: 
+\[
+\Delta h(s) = (1-0.8e^{-s/D})\Delta h \,\,\,\, \text{ com $D = 50 $ km e $s$ a distância}
+\]
 
 No artigo original do modelo~\cite{longleyrice}, um programa foi apresentado e as previsões da atenuação do sinal foram testadas para um certo intervalo de valores de entrada, onde o modelo provou-se eficiente. Os parâmetros e seus respectivos intervalos estão listados na tabela~\ref{table:longleyricevaluesinterval}:\\
 
@@ -370,27 +382,111 @@ Marítimo Sub-tropical       & 370                                    \\
 \label{fig:nsmap}
 \end{figure}
 
-\subsubsection{Parâmetros adicionais}
+\subsubsection{Parâmetros adicionais para o modo ponto-a-ponto}
 
-Cada modo depende de diferentes parâmetros de entrada. Nesse trabalho foi implementado o modo ponto-a-ponto, no qual as informações do relevo entre o transmissor e o receptor são conhecidos.  
-As variáveis adicionais utilizadas pelo algoritmo são:
+Cada modo depende de diferentes parâmetros de entrada.Nos modo ponto-a-ponto, informações detalhadas do terreno para o caminho entre o transmisso e receptor estão disponíveis, as variáveis adicionais de entrada utilizados pelo algoritmo nesse modo são:
 
 \begin{itemize}
-\item \begin{math}h_{eb}, h_{em}\end{math} Alturas efetivas das antenas
-\item \begin{math}d_{lb},d_{lm}\end{math} Distância de cada dispositivo ao seu horizonte de radio
-\item \begin{math}\theta_{eb}, \theta_{em}\end{math} Ângulos de elevação dos horizontes de cada dispositivo na altura das antenas
+\item \begin{math}h_{e1}, h_{e1}\end{math} Alturas efetivas das antenas
+\item \begin{math}d_{L1},d_{L2}\end{math} Distância de cada dispositivo ao seu horizonte
+\item \begin{math}\theta_{e1}, \theta_{e2}\end{math} Ângulos de elevação dos horizontes de cada dispositivo na altura das antenas
 \end{itemize}
 
-No modo área, esses valores são aproximados utilizando uma fórmila empírica na qual $\Deltah$ influencia fortemente.
-A altura efetiva de uma antena é a altura acima de um plano refletor, os valores podem ser encontrados na figura ~\ref{fig:radiohorizon}~\cite{irregularterrain}, 
+No modo área, esses valores são aproximados utilizando uma fórmula empírica na qual $\Delta h$ influencia fortemente, pois não há informações específicas do caminho a ser percorrido pelas ondas.
+
+A altura efetiva de uma antena é a altura acima de um plano refletor, os valores podem ser encontrados na figura ~\ref{fig:radiohorizon}~\cite{longleyrice}, 
 
 \begin{figure}[radiohorizon]
 \centering
 \includegraphics[width=0.8\textwidth]{figs/radiohorizon}
-\caption[Variáveis do modo ponto-a-ponto.]
-{Variáveis do modo ponto-a-ponto.}
+\caption[Geometria de um caminho transhorizonte.]
+{Geometria de um caminho transhorizonte.}
 \label{fig:radiohorizon}
 \end{figure}
+
+O ângulo $\theta$ é obtido da seguinte forma:
+
+\[
+\theta = max(\theta_{e1} + \theta{e2}, -d_{L} \gamma e)
+\]
+
+onde
+
+\[
+d_L = d_{L1} + d_L{L2}
+\]
+
+\subsubsection{Parâmetros adicionais para o modo área}
+
+O modo área realiza a predição com menos informações sobre o terreno. Portanto, apenas um parâmetro é levado em consideração: o critério de localização do receptor, que pode assumir apenas três valores: Aleatório, com cautela ou com muita cautela.
+
+Os parâmetros \begin{math}h_{ei}, \, d_{Li}, \, \theta_{ei}, \, j=1,2\end{math} não são parâmetos de entrada nesse modo, porque nem sempre as informações específicas do terreno estão disponíveis.No modo área, eles são calculados empiricamente e o critério de localização é utilizado para determinar a altura efetiva da seguinte forma:
+
+\[
+h_{ei} = h_{gi} \,\,\,\,\, \text{Se o dipositivo está localizado aleatoriamente}
+\]
+
+Se não, assuma que
+
+\[ B_i = \begin{cases} 
+      5 \text{ m} & \textrm{ Se o dispositivo está localizado com cautela} \\
+      10 \text{ m} & \textrm{ Se o dispositivo está localizado com grande cautela} \\
+   \end{cases} \]  
+   
+e
+
+\[ B'_i = (B_i - H_1)sen(\frac{\pi}{2} min(h_g1/H_2,1)) + H_1 \textrm{, sendo $H_1 = 1$ m, $H_2 = 5$ m,} \]
+
+com isso, a altura efetiva é calculada a partir da seguinte equação
+
+\[ h_{ei} = h_{gi} + B'_je^{-2h_{gi}/\Delta h} \]
+
+Em seguida, utilizamos os valores das alturas para determinar $d_{Lsi}\, , i=1,2$, que são as distâncias do horizonte assumindo a Terra como perfeitamente esférica:
+
+\[
+d_{Lsi} = \sqrt{2h_{ei}/\gamma_e}
+\]
+
+Com isso, as distâncias do horizonte são obtidas
+
+\[
+d_{Lj} = d_{Lsj}e^{-0.07\sqrt{\Delta h / max(h_{ei},H_3)}} \,\,\,\, \text{com $H_3 = 5$ m}
+\]
+
+Por fim, os ângulos efetivos $\theta_{ei}, i=1,2$ são calculados através da fórmula:
+
+\[
+	\theta_{ei} = \frac{0.65\Delta h(d_{Lsi}/d_{Li} -1)}{d_{Lsi}}
+\]
+
+
+\subsubsection{Retorno do algoritmo}
+
+Os parâmetros citados anteriormente são utilizados para computar a perda da transmissão. O resultado é um valor de atenuação calculado através do somatório de duas atenuações: A primeira é utilizando o Free-Spaces citado anteriormente enquanto a segunda é uma atenuação de referência, que pode ser calculada de diferentes maneiras, dependendo da distância entre os dispositivos.
+
+Sejam $A_{lr}$, $A_{fs}$, $A_{ref}$ as atenuações do Longley-Rice, Free Spaces e de referência, respectivamente, o valor da atenuação retornada pelo modelo é:
+
+\[
+A_{lr} = A_{fs} + A_{ref}
+\]
+
+Para calcular a atenuação (em dB) do Free Spaces, utiliza-se uma fórmula diferente da equação~\ref{potfree}:
+
+\[
+A_{fs} = 32.45 + 20 \log_{10}f + 20 \log_{10}d 
+\]
+
+Com a frequência $f$ em MHz e a distância $d$ em metros.
+
+\subsubsection{Atenuação de Referência $A_{ref}$}
+
+A atenuação de referência é calculada usando metódos baseados em diferentes modelos de propagação, para três intervalos de distâncias distintas. Na região onde a superfície da terra não interrompe a propagação do sinal, chamada de linha de visada (Line of Sight), o modelo utilizado é o Two Ray, somado ao Free Spaces mencionado anteriormente.
+
+Na região entre $d_{L1}$ e $d_{L2}$, o modelo que prevalece é o de difração\cite{rufford}. Nele, são utilizadas dois modelos para calcular a atenuação: A atenuação de goma dupla de faca e atenuação desenvolvida por Vogler para uma região de difração distante, assumindo a terra perfeitamente esférica~\cite{vogler}.
+
+Quando a distância entre os dispositivos ou $\theta$ é muito grande, calcula-se a atenuação na região de dispersão.
+
+A demonstração das diferentes fórmulas de cálculo da atenuação de referência $A{ref}$ não serão apresentadas nesse trabalho, mas foram implementadas na base. As equações podem ser encontradas no artigo original \cite{longleyrice} ou no artigo de Hufford \cite{rufford}.
 
 %
 %\subsubsection{API Desenvolvida}

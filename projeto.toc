@@ -10,14 +10,17 @@
 \contentsline {chapter}{\numberline {2}Implementa\IeC {\c c}\IeC {\~a}o da Base de Dados}{5}{chapter.2}
 \contentsline {section}{\numberline {2.1}Tecnologias Utilizadas}{5}{section.2.1}
 \contentsline {section}{\numberline {2.2}Arquitetura do Servidor}{6}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}C\IeC {\'a}lculo dos Canais Dispon\IeC {\'\i }veis}{6}{subsection.2.2.1}
+\contentsline {section}{\numberline {2.3}C\IeC {\'a}lculo dos Canais Dispon\IeC {\'\i }veis}{6}{section.2.3}
 \contentsline {subsubsection}{Modelos de Propaga\IeC {\c c}\IeC {\~a}o Implementados}{7}{section*.5}
 \contentsline {subsubsection}{Free Space}{8}{section*.6}
 \contentsline {subsubsection}{Two Ray Ground}{9}{section*.7}
 \contentsline {subsubsection}{Log Distance}{10}{section*.8}
 \contentsline {subsubsection}{Constantes}{11}{section*.9}
-\contentsline {section}{\numberline {2.3}Extens\IeC {\~a}o dos modelos}{11}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Longley-Rice}{11}{subsection.2.3.1}
+\contentsline {section}{\numberline {2.4}Extens\IeC {\~a}o dos modelos}{11}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Longley-Rice}{11}{subsection.2.4.1}
 \contentsline {subsubsection}{Par\IeC {\^a}metros de Entrada}{12}{section*.10}
-\contentsline {subsubsection}{Par\IeC {\^a}metros adicionais}{14}{section*.11}
-\contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{17}{chapter*.12}
+\contentsline {subsubsection}{Par\IeC {\^a}metros adicionais para o modo ponto-a-ponto}{16}{section*.11}
+\contentsline {subsubsection}{Par\IeC {\^a}metros adicionais para o modo \IeC {\'a}rea}{17}{section*.12}
+\contentsline {subsubsection}{Retorno do algoritmo}{18}{section*.13}
+\contentsline {subsubsection}{Atenua\IeC {\c c}\IeC {\~a}o de Refer\IeC {\^e}ncia $A_{ref}$}{18}{section*.14}
+\contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{19}{chapter*.15}
