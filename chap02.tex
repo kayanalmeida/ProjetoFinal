@@ -1,6 +1,6 @@
 % !TeX spellcheck = en_US
 
-\chapter{Implementação da Base de Dados}
+\chapter{Implementação do Sistema}
 
 Um protótipo de uma Base de Dados de WhiteSpace (BDWS)
 \abbrev{BDWS}{Bases de Dados de WhiteSpace}
@@ -9,26 +9,6 @@ foi implementado anteriormente por Marcelo Machado em seu trabalho de conclusão
 O espectro de frequência é extenso e utilizado para várias finalidades, como Transmissão de dados para satélites, rádio navegação e transmissão de TV. Atualmente, a base implementada possui apenas informações referentes ao espectro de transmissão de TV, que vai de 54 Mhz até 806Mhz~\cite{fccalloc} .
 
 A base possui as informações referentes às antenas de televisão que operam na região do Estado do Rio de Janeiro. Esses dados foram obtidos da ANATEL~\cite{channelstable}. Certos dados oriundos da agência reguladora estão incompletos e inconsistentes, o que acarreta erros de cálculo na base. Torna-se necessária uma maior cooperação entre a agência reguladora com a base, para aumentar a confiabilidade das respostas às requisições dos USs.
-
-\section{Tecnologias Utilizadas}
-
-O sistema foi desenvolvido utilizando a linguagem de programação orientada a objetos Java, com o Sistema de Gerenciamento de Banco de Dados MYSQL
-\abbrev{SGBD}{Sistema de Gerenciamento de Banco de Dados} 
-para armazenamento dos dados. O protocolo utilizado para o desenvolvimento da  Application Programming Interface (API)
-\abbrev{API}{Application Programming Interface} 
-foi o REST, para isso, foi utilizada uma biblioteca Java chamada Restlet~\cite{restlet}. As respostas do sistema são no formato XML ou no formato JSON. O desenvolvimento da base foi realizado no ambiente Eclipse.
-
-A aplicação Web utilizou  HyperText Markup Language(HTML)
-\abbrev{HTML}{HyperText Markup Language}
-para produção das páginas Web, em conjunto com a linguagem script Javascript para dinamização. Para customizar o layout da página, foi utilizado Cascading Style Sheets(CSS)
-\abbrev{CSS}{Cascading Style Sheets}
-como linguagem de estilo. Para realização de requisições assíncronas ao servidor, utilizou-se o AJAX. Por fim, para renderização do mapa geográfico na página Web, foi utilizada a API em Javascript de mapas HERE~\cite{heremaps}. 
-
-\section{Arquitetura do Servidor}
-
-Como citado na seção anterior, o servidor realiza a consulta ao banco de dados e obtém as informações dos UPs, em seguida aplica um dos modelos de propagação implementados e retorna uma lista com os canais livres baseada na posição geográfica do US.
-
-ENTRAR COM MAIS INFORMAÇÕES DA BASE, ESTRUTURA DAS TABELAS E CLASSES
 
 \section{Cálculo dos Canais Disponíveis}
 
@@ -218,6 +198,7 @@ As seguintes constantes foram assumidas para os cálculos descritos:
 Os modelos implementados não levam em conta a perda causada pelo relevo, o que pode gerar resultados menos acurados, podendo causar interferências ou subutilização de canais no espectro. Um novo modelo de propagação foi desenvolvido nesse trabalho, levando em contra outras variáveis para determinar a atenuação do sinal de um dispositivo.
 
 \subsection{Longley-Rice}
+\label{subsec:longleyricesection}
 
 Também conhecido como Irregular Terrain Model (ITM)\abbrev{ITM}{Irregular Terrain Model}, este modelo foi proposto para frequências entre 20 MHz a 20GHz, para alturas distintas de antenas transmissoras e receptoras. Dada a frequência, altura das antenas e uma estimativa da irregularidade do terreno, o modelo retorna um valor de referência para a atenuação do sinal. Foi bastante utilizado no auxílio de instalação de redes de telecomunicações, em especial os sistemas de televisão e rádiodifusão na alocação de canais de transmissão Very High Frequency(VHF)
 \abbrev{VHF}{Very High Frequency} 
@@ -486,51 +467,353 @@ Na região entre $d_{L1}$ e $d_{L2}$, o modelo que prevalece é o de difração\
 
 Quando a distância entre os dispositivos ou $\theta$ é muito grande, calcula-se a atenuação na região de dispersão.
 
-A demonstração das diferentes fórmulas de cálculo da atenuação de referência $A{ref}$ não serão apresentadas nesse trabalho, mas foram implementadas na base. As equações podem ser encontradas no artigo original \cite{longleyrice} ou no artigo de Hufford \cite{rufford}.
+\section{Tecnologias Utilizadas}
 
-%
-%\subsubsection{API Desenvolvida}
-%
-%Os dados obtidos de cada modelo de propação são obtidos através de requisições HTTP para um Web Service. 
-%Web Services são uma maneira de disponibilizar um serviço cliente servidor em uma rede. Uma mensagem é enviada do cliente ao servidor, que executa o serviço e envia uma mensagem de resposta ao cliente. A interface definida pelo servidor deve ser indicada ao cliente, bem como o formato de resposta utilizado.
-%
-%O Web Service desenvolvido tem dois objetivos. O primeiro é de prestar o serviço de disponibilidade de canais no WS, como descrito no PAWS. O segundo é de tornar disponível todas as informações contidas na base desenvolvida. Foi criado, então, um serviço para cada tipo de item disponível:
-%
-%\begin{itemize}
-%\item Canal
-%\item Antena
-%\item Dispositivo Secundário
-%\end{itemize}
-%
-%Além disso, é possível determinar o modelo de propagação que será utilizado pelo servidor para realizar os devidos cálculos.
-%
-%
-%\subsection{REST}
-%
-%O Web Service foi desenvolvido no modelo REST~\cite{restful}. O seu conceito básico é que a base consiste de recursos, cada um com um Uniform Resource Identifier (URI)
-%\abbrev{URI}{Uniform Resource Identifier}
-%específico. Os URIs consistem de URLs que são alcançáveis por pedidos HTTP. Pode-se, então, interagir com toda base enviando pedidos HTTP.
-%
-%Existem quatro tipos de pedido HTTP que podem ser utilizados:
-%
-%\begin{itemize}
-%\item GET - utilizado para buscar um recurso
-%\item POST - utilizado para alterar o valor de um recurso
-%\item PUT - utilizado para alterar o valor de um recurso
-%\item DELETE - utilizado para excluir um recurso
-%\end{itemize}
-%
-%O POST e o PUT possuem basicamente a mesma função. A especificação do HTTP~\cite{RFC2616} define que o PUT deve ser utilizado quando um novo recurso é criado na base, enquanto o POST modifica um recurso já existente. No entanto, o PUT também pode ser usado para modificar um recurso já existente. Dessa forma, apenas o PUT foi utilizado no sistema desenvolvido.
-%
-%Não existe uma forma padrão para a resposta do servidor ao cliente. Entretanto, isso muitas vezes é feito via JSON ou XML, já que estes formatos apresentam uma forma mais estruturada. No servidor desenvolvido o formato de resposta escolhido foi o XML.
-%
-%Pode-se resumir o funcionamento do servidor REST desenvolvido da seguinte maneira:
-%
-%\begin{itemize}
-%\item O cliente faz um pedido HTTP em uma URL do servidor
-%\item O servidor identifica qual recurso essa URL serve
-%\item O servidor processa o pedido e retorna o recurso
-%\item O cliente recebe a resposta do servidor no formato XML ou JSON
-%\end{itemize}
-%
-%A implementação do servidor, sua estrutura e padrões de programação podem ser encontradas em \cite{tccmarcelo}, as novas funcionalidades seguiram o seu padrão de desenvolvimento.
+O sistema foi desenvolvido utilizando a linguagem de programação orientada a objetos Java, com o Sistema de Gerenciamento de Banco de Dados MYSQL
+\abbrev{SGBD}{Sistema de Gerenciamento de Banco de Dados} 
+para armazenamento dos dados. O protocolo utilizado para o desenvolvimento da  Application Programming Interface (API)
+\abbrev{API}{Application Programming Interface} 
+foi o REST, para isso, foi utilizada uma biblioteca Java chamada Restlet~\cite{restlet}. As respostas do sistema são no formato XML ou no formato JSON. O desenvolvimento da base foi realizado no ambiente Eclipse.
+
+A aplicação Web utilizou  HyperText Markup Language(HTML)
+\abbrev{HTML}{HyperText Markup Language}
+para produção das páginas Web, em conjunto com a linguagem script Javascript para dinamização. Para customizar o layout da página, foi utilizado Cascading Style Sheets(CSS)
+\abbrev{CSS}{Cascading Style Sheets}
+como linguagem de estilo. Para realização de requisições assíncronas ao servidor, utilizou-se o AJAX. Por fim, para renderização do mapa geográfico na página Web, foi utilizada a API em Javascript de mapas HERE~\cite{heremaps}. 
+
+\section{Banco de Dados}
+
+\subsection{Obtenção dos dados}
+
+Os dados foram obtidos diretamente do site da ANATEL~\cite{channelstable}, de forma manual. Foi baixado um arquivo com as informações de todas as antenas de televisão instaladas no Brasil. No arquivo, estão presentes os seguintes dados:
+
+\begin{itemize}
+\item Estado
+\item Cidade
+\item Dono
+\item Tipo
+\item Canal
+\item Complemento do Canal 
+\item Campo Vazio
+\item Latitude 
+\item Longitude 
+\item Potência
+\item Informações de Antenas Direcionais
+	\subitem Altura
+	\subitem Direcionamento
+	\subitem Potência
+\end{itemize}
+
+Desse arquivo foram extraídas informações das antenas cujo campo $Estado$ era "RJ".
+
+Para identificar qual o canal que uma antena operava, foram utilizados os campos $Canal$ e $Complemento\, do\, Canal$.
+
+Os campos $Latitude$ e $Longitude$ informam a posição da antena no planeta, no formato grau-minuto-segundo, com uma letra indicando a direção da bússola. Essas informações foram convertidas para o formato decimal, para o caso do Estado do Rio de Janeiro, assumiram valores negativos pois o estado está localizado à Oeste e Sul do globo.
+
+O campo \textit{Potência} está em kW e é utilizado como potência da antena.
+
+No arquivo, assume-se que as antenas são multidirecionais, porém, algumas antenas irradiam a uma dada potência apenas em um cone direcionado. Chamadas Antenas Direcionais, essas antenas são descritas no arquivo com os campos \textit{Altura}, \textit{Direcionamento} (em Azimuth) e \textit{Potência}, dentro de \textit{Informações de Antenas Direcionais}.
+
+\subsubsection{Canais de transmissão}
+
+As informações referentes aos canais de transmissão utilizados pelas antenas também foram retiradas do site da ANATEL, e incluídas na base. Na tabela ~\ref{table:tabcanal}, estão as informações de frequência para cada canal.
+
+\begin{center}
+\begin{longtable}{cccc}
+
+\caption[Informações sobre os canais de transmissão.]
+{Tabela obtida do site da ANATEL}
+\label{table:tabcanal} \\
+
+\hline \multicolumn{1}{|c|}{\textbf{Canal}} & \multicolumn{1}{c|}{\textbf{ Frequência Mínima}} & \multicolumn{1}{c|}{\textbf{Frequência Média}}  & \multicolumn{1}{c|}{\textbf{Frequência Máxima}} \\ \hline 
+\endfirsthead
+
+\multicolumn{4}{c}%
+{{\bfseries \tablename\ \thetable{} -- continuação}} \\
+\hline 
+\multicolumn{1}{|c|}{\textbf{Canal}} &
+\multicolumn{1}{c|}{\textbf{Frequência Mínima}} &
+\multicolumn{1}{c|}{\textbf{Frequência Média }} &
+\multicolumn{1}{c|}{\textbf{Frequência Máxima}} \\ \hline 
+\endhead
+
+\hline 
+\endfoot
+
+\hline \hline
+\endlastfoot
+
+2 & 54 & 57 & 60 \\ 
+3 & 60 & 63 & 66 \\ 
+4 & 66 & 69 & 72 \\ 
+5 & 76 & 79 & 82 \\ 
+6 & 82 & 85 & 88 \\ 
+7 & 174 & 177 & 180 \\ 
+8 & 180 & 183 & 186 \\ 
+9 & 186 & 189 & 192 \\ 
+10 & 192 & 195 & 198 \\ 
+11 & 198 & 201 & 204 \\ 
+12 & 204 & 207 & 210 \\ 
+13 & 210 & 213 & 216 \\ 
+14 & 470 & 473 & 476 \\ 
+15 & 476 & 479 & 482 \\ 
+16 & 482 & 485 & 488 \\ 
+17 & 488 & 491 & 494 \\ 
+18 & 494 & 497 & 500 \\ 
+19 & 500 & 503 & 506 \\ 
+20 & 506 & 509 & 512 \\ 
+21 & 512 & 515 & 518 \\ 
+22 & 518 & 521 & 524 \\ 
+23 & 524 & 527 & 530 \\ 
+24 & 530 & 533 & 536 \\ 
+25 & 536 & 539 & 542 \\ 
+26 & 542 & 545 & 548 \\ 
+27 & 548 & 551 & 554 \\ 
+28 & 554 & 557 & 560 \\ 
+29 & 560 & 563 & 566 \\ 
+30 & 566 & 569 & 572 \\ 
+31 & 572 & 575 & 578 \\ 
+32 & 578 & 581 & 584 \\ 
+33 & 584 & 587 & 590 \\ 
+34 & 590 & 593 & 596 \\ 
+35 & 596 & 599 & 602 \\ 
+36 & 602 & 605 & 608 \\ 
+38 & 614 & 617 & 620 \\ 
+39 & 620 & 623 & 626 \\ 
+40 & 626 & 629 & 632 \\ 
+41 & 632 & 635 & 638 \\ 
+42 & 638 & 641 & 644 \\ 
+43 & 644 & 647 & 650 \\ 
+44 & 650 & 653 & 656 \\ 
+45 & 656 & 659 & 662 \\ 
+46 & 662 & 665 & 668 \\ 
+47 & 668 & 671 & 674 \\ 
+48 & 674 & 677 & 680 \\ 
+49 & 680 & 683 & 686 \\ 
+50 & 686 & 689 & 692 \\ 
+51 & 692 & 695 & 698 \\ 
+52 & 698 & 701 & 704 \\ 
+53 & 704 & 707 & 710 \\ 
+54 & 710 & 713 & 716 \\ 
+55 & 716 & 719 & 722 \\ 
+56 & 722 & 725 & 728 \\ 
+57 & 728 & 731 & 734 \\ 
+58 & 734 & 737 & 740 \\ 
+59 & 740 & 743 & 746 \\ 
+60 & 746 & 749 & 752 \\ 
+61 & 752 & 755 & 758 \\ 
+62 & 758 & 761 & 764 \\ 
+63 & 764 & 767 & 770 \\ 
+64 & 770 & 773 & 776 \\ 
+65 & 776 & 779 & 782 \\ 
+66 & 782 & 785 & 788 \\ 
+67 & 788 & 791 & 794 \\ 
+68 & 794 & 797 & 800 \\ 
+69 & 800 & 803 & 806 \\ 
+
+\end{longtable}
+\end{center}
+
+
+\subsection{Confiabilidade dos Dados}
+
+Para o funcionamento apropriado da base, os dados oriundos da ANATEL devem ser consistentes. No entando, após análise dos mesmo, nota-se que o arquivo possui diversos erros. Algumas antenas estão localizadas em São Paulo, porém o campo \textit{Estado} possui valor "RJ". Além disso, no campo \textit{Elevação}, utilizado para definir a altura de determinada antena, possuía valores muito grandes, acima de 1.5km e valores abaixo de zero, o que é impossível fisicamente.
+Outro problema é a pouca precisão nos valores de \textit{Latitude} e \textit{Longitude} das antenas.
+
+Essa ausência de confiabilidade acaba prejudicando os modelos de propagação do sinal da antena, portanto é necessária uma cooperação com a ANATEL para melhorar a qualidade desses dados.
+
+\subsection{Base de Dados}
+
+A partir do arquivo da ANATEL, foi modelado um banco de dados que armazenasse as informações das antenas, dos canais e foram criados três tipos diferentes de USs.
+
+Para os USs, foram criados três tipos de dispositivos:
+
+\begin{table}[h]
+\centering
+\caption[Tipos de dispositivos para Usuários Secundários.]
+{Tipos de dispositivos para Usuários Secundários.} 
+\label{table:wstypes}
+\begin{tabular}{lc}
+
+\hline
+Tipo de Dispositivo          & Potência (mW)     \\ \hline
+INTERNO BAIXO                & 10                \\
+INTERNO ALTO                 & 50                \\
+EXTERNO                      & 100                     
+\end{tabular}
+\end{table}
+
+São três classes de dispositivos com potências pré-definidas. Se o dispositivo for utilizado dentro de alguma construção, será do tipo "INTERNO", enquanto dispositivos de uso externo, no tipo "EXTERNO".
+
+Com essas informações, foram implementadas cinco tabelas no banco.
+
+Na tabela Channels, temos informações sobre o número do canal e as frequências mínima, média e máxima de transmissão nesse canal.
+
+As tabelas \textit{Antenas} e \textit{Ws\_Devices} apontam para um determinado canal, através da coluna \textit{channel\_id} e dentro de ambas as tabelas temos a sua localização.
+
+Nas \textit{Antenas}, existem informações da sua potência e elevação. Foi criada também uma tabela para antenas direcionais a \textit{Directed\_Antenas}.
+
+Na tabela de dispositivos secundários, \textit{Ws\_Devices}, existe uma coluna que referencia o tipo de dispositivo \textit{device\_class\_id}. Os tipos de dispositivos são armazenados em uma tabela separada, denominada \textit{Device\_Class}.
+
+O design do banco de dados pode ser observado na figura ~\ref{fig:databasebefore}.
+
+
+\begin{figure}[databasebefore]
+\centering
+\includegraphics[width=1.0\textwidth]{figs/databasebefore}
+\caption[Estrutura da base de dados.]
+{Estrutura da base de dados.}
+\label{fig:databasebefore}
+\end{figure}
+
+
+\section{Web Service}
+
+Como citado na seção anterior, o servidor realiza a consulta ao banco de dados e obtém as informações dos UPs, em seguida aplica um dos modelos de propagação implementados e retorna uma lista com os canais livres baseada na posição geográfica do US.
+
+\subsection{REST}
+\textit{Representational State Transfer(REST)} é um padrão de arquitetura de software. Consiste em diretrizes para criação de \textit{Web Services} escaláveis e é amplamente utilizado na Web, por ser uma alternativa mais simples ao \textit{Simple Object Access Protocol (SOAP)} e \textit{Web Services Description Language (WSDL)},
+ criado em 2000, na tese doutorado de Roy T. Fielding ~\cite{restcreator}.
+ 
+Além de simplificar as interfaces, esse padrão é performático e escalável.
+
+Sistemas REST tipicamente utilizam o protocolo HTTP com os mesmos métodos (GET,POST,PUT E DELETE) utilizado pelos browsers para carregar páginas e enviar dados à servidores.
+
+Ele assume que a base consiste de recursos, que podem ser acessados via URL. Cada recurso tem seu próprio identificador, denominado \textit{Unified Resource Identifier}(URI).
+
+\abbrev{URI}{Uniform Resource Identifier}
+
+Esse recursos, por sua vez, são acessados por requisições HTTP, divididos em quatro tipos citados anteriormente:
+
+\begin{itemize}
+\item GET - realiza a busca de um recurso
+\item POST - utilizado para alterar o valor de um recurso
+\item PUT - utilizado para alterar o valor de um recurso
+\item DELETE - utilizado para excluir um recurso
+\end{itemize}
+
+O POST e o PUT são bastante semelhantes, mas segundo a especificação do HTTP ~\cite{RFC2616}, o método POST deve ser utilizado na criação de um novo recurso, enquanto o PUT somente para a alteração de recursos criados anteriormente. No entando, o POST também é utilizado para alteração de recursos já existentes na base e foi utilizado dessa forma também no desenvolvimento do Web Service deste trabalho.
+
+Não existe uma forma padrão para a resposta do servidor ao cliente. Entretanto, isso muitas vezes é feito via JSON ou XML, já que estes formatos apresentam uma forma mais estruturada. No servidor desenvolvido o formato de resposta escolhido foi o XML e posteriormente algumas respostas foram modificadas para JSON, visando uma melhor comunicação com a interface Web.
+
+\begin{figure}[clientserver]
+\centering
+\includegraphics[width=1.0\textwidth]{figs/clientserver}
+\caption[Arquitetura cliente servidor.]
+{Arquitetura cliente servidor.}
+\label{fig:clientserver}
+\end{figure}
+
+
+Um possível fluxo de uma requisição pode ser seguinte maneira:
+
+\begin{itemize}
+\item O cliente faz um pedido HTTP através de uma URL ao servidor
+\item Baseado na URI da URL, o servidor localiza o recurso no banco
+\item O servidor processa o pedido e retorna o recurso
+\item O cliente recebe a resposta do servidor no formato XML ou JSON
+\end{itemize}
+
+
+\subsection{Classes}
+A linguagem utilizada para a implemetanção do servidor foi Java, uma linguagem orientada a objetos onde todos os arquivos são classes. O padrão de desenvolvimento adotado por Machado~\cite{tccmarcelo} foi o de Fábricas.
+
+Esse padrão de desenvolvimento consiste em definir interfaces nas quais os objetos devem estender. Existem também objetos Fábrica, que são responsáveis pela instanciação dos objetos que implementam as interfaces citadas anteriormente. Dessa forma, nenhum objeto é referenciado diretamente.
+
+As classes \textit{Factories} implementadas são representadas na figura abaixo~\ref{fig:facto}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1.0\textwidth]{figs/factories}
+\caption[\textit{Factories}.]
+{Diagrama de classe das - \textit{Factories}~\cite{tccmarcelo} }
+\label{fig:facto}
+\end{figure} 
+
+
+Cada fábrica é responsável por instanciar um componente que será utilizado no servidor. 
+
+A fábrica \textit{PropagationModelFactory} possui um método chamado \textit{getModelInstance()}, que recebe como parâmetro de entrada um inteiro referente ao modelo de propagação desejado. Os modelos estão mapeados no servidor conforme a tabela ~\ref{table:modelnumbers}.
+
+O último modelo não foi implementado na versão inicial do servidor, sendo implementada nesse trabalho. O modelo é explicado na seção ~\ref{subsec:longleyricesection}.
+
+\begin{table}[modelnumbers]
+\centering
+\caption[Código dos modelos de Propagação no Servidor.]
+{Código dos modelos de Propagação no Servidor.} 
+\label{table:modelnumbers}
+\begin{tabular}{lc}
+Modelo de Propagação          & Valor            \\ \hline
+Free Spaces                   & 0                \\
+Log Distance                  & 1                \\
+Two Ray Ground                & 2                \\
+Longley-Rice                  & 3                        
+\end{tabular}
+\end{table}
+
+A \textit{DaoFactory} é a fábrica responsável pela comunicação com o banco de dados. Cada objeto que ela instancia está relacionado à uma tabela do banco.
+
+A \textit{APIFactory} é responsável pelo mapeamento das requisições oriundas do Cliente em métodos do servidor e retorna a resposta no formato JSON ou XML.
+
+A \textit{DistanceCalculatorFactory} é responsável pelo cálculo das distâncias entre os pontos no globo, essa classe é importante para determinar se há interferência ou não, conforme demonstrado na equação ~\ref{cantransmitdata}.
+
+As Fábricas citadas acima foram modificadas para implementação do novo algoritmo e suas alterações são especificadas no próximo capítulo.
+
+\subsection{API}
+
+A comunicação com o servidor é realizada via API, onde uma URL é enviada através de um dos métodos HTTP citados anteriormente. A seguir, a lista das possíveis URLs implementadas no projeto de Machado~\cite{tccmarcelo}. 
+
+\begin{itemize}
+\item http://servidor/SAM/devices
+\begin{itemize}
+	\item GET -- Busca todos os dispositivos de transmissão presentes na base;
+\end{itemize}
+\item http://servidor/SAM/devices/location
+\begin{itemize}
+	\item GET -- Busca todos os dispositivos de transmissão presentes na base dada uma localização;
+\end{itemize}
+\item http://servidor/SAM/devices/channel
+\begin{itemize}
+	\item GET -- Busca todos os dispositivos de transmissão presentes na base dado um canal;
+\end{itemize}
+\item http://servidor/SAM/devices/antennas
+\begin{itemize}
+	\item GET -- Busca todas as antenas presentes na base;
+\end{itemize}
+\item http://servidor/SAM/devices/antennas/location
+\begin{itemize}
+	\item GET -- Busca todas as antenas presentes na base dada uma localização;
+\end{itemize}
+\item http://servidor/SAM/devices/antennas/channel
+\begin{itemize}
+	\item GET -- Busca todas as antenas presentes na base dado um canal;
+\end{itemize}
+\item http://servidor/SAM/devices/ws
+\begin{itemize}
+	\item GET -- Busca todos os dispositivos secundários presentes na base;
+	\item PUT -- Cadastra um dispositivo secundário na base;
+	\item DELETE -- Remove um dispositivo secundário na base;
+\end{itemize}
+\item http://servidor/SAM/devices/ws/location
+\begin{itemize}
+	\item GET -- Busca todos os dispositivos secundários na base dada uma localização;
+\end{itemize}
+\item http://servidor/SAM/devices/ws/channel
+\begin{itemize}
+	\item GET -- Busca todos os dispositivos secundários na base dado um canal;
+\end{itemize}
+\item http://servidor/SAM/devices/ws/classes
+\begin{itemize}
+	\item GET -- Busca todos os tipos de dispositivos secundários cadastrados na base;
+\end{itemize}
+\item http://servidor/SAM/channels
+\begin{itemize}
+	\item GET -- Busca todos os canais cadastrados na base;
+\end{itemize}
+\item http://servidor/SAM/channels/available
+\begin{itemize}
+	\item GET -- Busca os canais disponíveis para uso por um determinado dispositivo;
+\end{itemize}
+\end{itemize}
+
+Uma descrição mais detalhada do funcionamento da API e as classes relacionadas, parâmetros de entrada e o formato da resposta do servidor pode ser encontrada na tese de Machado ~\cite{tccmarcelo}.

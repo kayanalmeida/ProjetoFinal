@@ -6,6 +6,7 @@ A level-1 auxiliary file: resumo.aux
 A level-1 auxiliary file: abstract.aux
 A level-1 auxiliary file: chap01.aux
 A level-1 auxiliary file: chap02.aux
+A level-1 auxiliary file: chap03.aux
 The style file: coppetex/coppe-unsrt.bst
 Database file #1: projeto.bib
 Warning--empty institution in ieee80222
@@ -13,50 +14,51 @@ Warning--empty year in googlespectrumdatabase
 Warning--empty institution in tccmarcelo
 Warning--empty year in fccalloc
 Warning--empty year in channelstable
-Warning--empty year in restlet
-Warning--empty year in heremaps
 Warning--empty institution in longleyrice
 Warning--empty institution in longleyricedelta
 Warning--empty institution in vogler
-You've used 14 entries,
+Warning--empty year in restlet
+Warning--empty year in heremaps
+Warning--empty institution in restcreator
+You've used 17 entries,
             2628 wiz_defined-function locations,
-            613 strings with 5811 characters,
-and the built_in function-call counts, 3930 in all, are:
-= -- 326
-> -- 102
-< -- 12
-+ -- 58
-- -- 30
-* -- 276
-:= -- 584
-add.period$ -- 56
-call.type$ -- 14
-change.case$ -- 20
-chr.to.int$ -- 14
-cite$ -- 25
-duplicate$ -- 254
-empty$ -- 432
-format.name$ -- 43
-if$ -- 826
+            628 strings with 6213 characters,
+and the built_in function-call counts, 4752 in all, are:
+= -- 394
+> -- 123
+< -- 15
++ -- 70
+- -- 36
+* -- 333
+:= -- 705
+add.period$ -- 67
+call.type$ -- 17
+change.case$ -- 24
+chr.to.int$ -- 17
+cite$ -- 29
+duplicate$ -- 308
+empty$ -- 525
+format.name$ -- 52
+if$ -- 1001
 int.to.chr$ -- 1
-int.to.str$ -- 15
+int.to.str$ -- 18
 missing$ -- 2
-newline$ -- 85
-num.names$ -- 39
-pop$ -- 158
+newline$ -- 100
+num.names$ -- 48
+pop$ -- 189
 preamble$ -- 1
-purify$ -- 14
+purify$ -- 17
 quote$ -- 0
-skip$ -- 121
+skip$ -- 150
 stack$ -- 0
-substring$ -- 37
-swap$ -- 70
+substring$ -- 45
+swap$ -- 86
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 95
-warning$ -- 10
-while$ -- 26
+type$ -- 116
+warning$ -- 11
+while$ -- 32
 width$ -- 0
-write$ -- 184
-(There were 10 warnings)
+write$ -- 220
+(There were 11 warnings)

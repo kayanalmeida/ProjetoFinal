@@ -1,4 +1,4 @@
-\begin{thebibliography}{14}
+\begin{thebibliography}{17}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -39,7 +39,7 @@
   Machado}]{tccmarcelo}
 \MakeUppercase{{Marcelo Rocha Machado}}.
 \newblock \emph{Banco de Dados de Disponibilidade de Espectro para Radios
-  Cognitivos"}.
+  Cognitivos}.
 \newblock Relat{\'o}rio t{\'e}cnico, Apr. 2013.
 
 \bibitem[\MakeUppercase{{Federal Communications Commission (FCC)}}(){Federal
@@ -54,17 +54,6 @@
 \newblock \enquote{Consulta de Canais}. .
 \newblock
   \url{http://sistemas.anatel.gov.br/siscom/consplanobasico/default.asp?SISQSmodulo=2605}.
-\newblock Acessado em Fevereiro de 2014.
-
-\bibitem[res()]{restlet}
-\enquote{Restlet}. .
-\newblock \url{http://restlet.org/}.
-\newblock Acessado em fevereiro de 2013.
-
-\bibitem[\MakeUppercase{{HERE}}(){HERE}]{heremaps}
-\MakeUppercase{{HERE}}.
-\newblock \enquote{Javascript API}. .
-\newblock \url{https://developer.here.com/javascript-apis}.
 \newblock Acessado em Fevereiro de 2014.
 
 \bibitem[\MakeUppercase{Rappaport}(2001)Rappaport]{rapapport}
@@ -99,5 +88,36 @@
 \newblock \emph{Calculation of Groundwave Attenuation in the Far Diffraction
   Region}.
 \newblock Relat{\'o}rio t{\'e}cnico, jan. 1964.
+
+\bibitem[res()]{restlet}
+\enquote{Restlet}. .
+\newblock \url{http://restlet.org/}.
+\newblock Acessado em fevereiro de 2013.
+
+\bibitem[\MakeUppercase{{HERE}}(){HERE}]{heremaps}
+\MakeUppercase{{HERE}}.
+\newblock \enquote{Javascript API}. .
+\newblock \url{https://developer.here.com/javascript-apis}.
+\newblock Acessado em Fevereiro de 2014.
+
+\bibitem[\MakeUppercase{{Roy Thomas Fielding}}(2000){Roy Thomas
+  Fielding}]{restcreator}
+\MakeUppercase{{Roy Thomas Fielding}}.
+\newblock \emph{Architectural Styles and the Design of Network-based Software
+  Architectures}.
+\newblock Relat{\'o}rio t{\'e}cnico, 2000.
+
+\bibitem[\MakeUppercase{{Internet Engineering Task Force
+  (IETF)}}(1999){Internet Engineering Task Force (IETF)}]{RFC2616}
+\MakeUppercase{{Internet Engineering Task Force (IETF)}}.
+\newblock \enquote{Hypertext Transfer Protocol -- HTTP/1.1}. .
+\newblock \url{http://www.ietf.org/rfc/rfc2616.txt}, jun. 1999.
+
+\bibitem[\MakeUppercase{{Internet Engineering Task Force
+  (IETF)}}(2014){Internet Engineering Task Force (IETF)}]{htmlw3cs}
+\MakeUppercase{{Internet Engineering Task Force (IETF)}}.
+\newblock \enquote{HTML5 A vocabulary and associated APIs for HTML and XHTML
+  W3C Recommendation}. .
+\newblock \url{http://www.w3.org/TR/html/}, out. 2014.
 
 \end{thebibliography}
