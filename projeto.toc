@@ -21,16 +21,16 @@
 \contentsline {subsubsection}{Par\IeC {\^a}metros adicionais para o modo ponto-a-ponto}{14}{section*.12}
 \contentsline {subsubsection}{Par\IeC {\^a}metros adicionais para o modo \IeC {\'a}rea}{16}{section*.13}
 \contentsline {subsubsection}{Retorno do algoritmo}{17}{section*.14}
-\contentsline {subsubsection}{Atenua\IeC {\c c}\IeC {\~a}o de Refer\IeC {\^e}ncia $A_{ref}$}{17}{section*.15}
+\contentsline {subsubsection}{Atenua\IeC {\c c}\IeC {\~a}o de Refer\IeC {\^e}ncia $A_{ref}$}{18}{section*.15}
 \contentsline {section}{\numberline {2.3}Tecnologias Utilizadas}{18}{section.2.3}
-\contentsline {section}{\numberline {2.4}Banco de Dados}{18}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Obten\IeC {\c c}\IeC {\~a}o dos dados}{18}{subsection.2.4.1}
-\contentsline {subsubsection}{Canais de transmiss\IeC {\~a}o}{19}{section*.16}
-\contentsline {subsection}{\numberline {2.4.2}Confiabilidade dos Dados}{21}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.4}Banco de Dados}{19}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Obten\IeC {\c c}\IeC {\~a}o dos dados}{19}{subsection.2.4.1}
+\contentsline {subsubsection}{Canais de transmiss\IeC {\~a}o}{20}{section*.16}
+\contentsline {subsection}{\numberline {2.4.2}Confiabilidade dos Dados}{22}{subsection.2.4.2}
 \contentsline {subsection}{\numberline {2.4.3}Base de Dados}{22}{subsection.2.4.3}
-\contentsline {section}{\numberline {2.5}Web Service}{22}{section.2.5}
+\contentsline {section}{\numberline {2.5}Web Service}{23}{section.2.5}
 \contentsline {subsection}{\numberline {2.5.1}REST}{23}{subsection.2.5.1}
-\contentsline {subsection}{\numberline {2.5.2}Classes}{24}{subsection.2.5.2}
+\contentsline {subsection}{\numberline {2.5.2}Classes}{25}{subsection.2.5.2}
 \contentsline {subsection}{\numberline {2.5.3}API}{26}{subsection.2.5.3}
 \contentsline {chapter}{\numberline {3}Extens\IeC {\~a}o das funcionalidades}{28}{chapter.3}
 \contentsline {section}{\numberline {3.1}\textit {Frontend} }{28}{section.3.1}
@@ -38,6 +38,29 @@
 \contentsline {subsection}{\numberline {3.1.2}JavaScript}{29}{subsection.3.1.2}
 \contentsline {subsection}{\numberline {3.1.3}CSS}{29}{subsection.3.1.3}
 \contentsline {subsection}{\numberline {3.1.4}Implementa\IeC {\c c}\IeC {\~a}o}{30}{subsection.3.1.4}
-\contentsline {subsubsection}{Altera\IeC {\c c}\IeC {\~o}es no Servidor}{30}{section*.17}
-\contentsline {subsubsection}{Estrutura da P\IeC {\'a}gina}{30}{section*.18}
-\contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{31}{chapter*.19}
+\contentsline {subsubsection}{Estrutura da P\IeC {\'a}gina}{30}{section*.17}
+\contentsline {subsubsection}{API de mapas}{31}{section*.18}
+\contentsline {section}{\numberline {3.2}\textit {Backend}}{32}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Servindo a p\IeC {\'a}gina}{32}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Implementa\IeC {\c c}\IeC {\~a}o do Longley-Rice}{33}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Altera\IeC {\c c}\IeC {\~o}es no banco}{33}{subsection.3.2.3}
+\contentsline {chapter}{\numberline {4}Resultados obtidos}{35}{chapter.4}
+\contentsline {section}{\numberline {4.1}P\IeC {\'a}gina Web}{35}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Modelo Free Spaces}{37}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Modelo Log Distance}{38}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Modelo Two Ray Ground}{41}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Modelo Longley-Rice}{42}{subsection.4.1.4}
+\contentsline {section}{\numberline {4.2}Resultado da an\IeC {\'a}lise}{45}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Diferen\IeC {\c c}a entre Modelos}{45}{subsection.4.2.1}
+\contentsline {subsubsection}{Modelo Free Space}{45}{section*.19}
+\contentsline {subsubsection}{Log Distance}{45}{section*.20}
+\contentsline {subsubsection}{Two Ray}{45}{section*.21}
+\contentsline {subsubsection}{Longley-Rice}{45}{section*.22}
+\contentsline {subsection}{\numberline {4.2.2}Conclus\IeC {\~a}o}{46}{subsection.4.2.2}
+\contentsline {chapter}{\numberline {5}Conclus\IeC {\~a}o e Trabalhos Futuros}{47}{chapter.5}
+\contentsline {section}{\numberline {5.1}Conclus\IeC {\~a}o}{47}{section.5.1}
+\contentsline {section}{\numberline {5.2}Trabalhos Futuros}{47}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Intera\IeC {\c c}\IeC {\~a}o com a ANATEL}{47}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}C\IeC {\'a}lculo de Disponibilidade}{48}{subsection.5.2.2}
+\contentsline {subsubsection}{Verifica\IeC {\c c}\IeC {\~a}o de resultados}{48}{section*.23}
+\contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{50}{chapter*.24}

@@ -226,9 +226,11 @@ Para ambos os modos, os parâmetros listados abaixo são necessários:
 
 Para obtermos o número de onda, basta aplicarmos a fórmula:
 
-\[
-k = 2\pi/\lambda = f/f_0 \,\,\,\,\, \text{ sendo} \,\,\,\,\,\,\,\,\, f_0 = 47.70 \text{ MHz . m }
-\]
+
+\begin{align}
+  \label{wn} k = 2\pi/\lambda = f/f_0 \,\,\,\,\, \text{ sendo} \,\,\,\,\,\,\,\,\, f_0 = 47.70 \text{ MHz . m }
+\end{align}
+
 
 O parâmetro de irregularidade do terreno pode ser obtido na tabela~\ref{table:deltah}. \\
 
@@ -251,9 +253,9 @@ Montanhas                    & 500
 
 
 O valor do parâmetro de irregularidade varia em função da distância, seguindo a equação abaixo: 
-\[
-\Delta h(s) = (1-0.8e^{-s/D})\Delta h \,\,\,\, \text{ com $D = 50 $ km e $s$ a distância}
-\]
+\begin{align}
+\label{deltaH} \Delta h(s) = (1-0.8e^{-s/D})\Delta h \,\,\,\, \text{ com $D = 50 $ km e $s$ a distância}
+\end{align}
 
 No artigo original do modelo~\cite{longleyrice}, um programa foi apresentado e as previsões da atenuação do sinal foram testadas para um certo intervalo de valores de entrada, onde o modelo provou-se eficiente. Os parâmetros e seus respectivos intervalos estão listados na tabela~\ref{table:longleyricevaluesinterval}:\\
 
@@ -274,20 +276,22 @@ Refratividade da Superfície & 250 a 400 N-unidades
 
 A polarização da antena pode ser horizontal ou vertical e afeta o valor da impedância da superfície \begin{math}Z_g\end{math}, ibtida pela análise da permissividad e condutividade do solo em relação à polarização das ondas. A impedância característica do solo em relação a sua polarização é apresentada a seguir:
 
-
-\[ Z_g = \begin{cases} 
-      \sqrt{\epsilon_r' - 1} & \textrm{ Polarização horizontal} \\
-      \frac{\sqrt{\epsilon_r' - 1}}{\epsilon_r'} & \textrm{ Polarização vertical} \\
-   \end{cases} \]
+\[
+\label{z_G}}
+	      Z_g = \begin{cases} 
+	 \sqrt{\epsilon_r' - 1} & \textrm{ Polarização horizontal} \\
+       \frac{\sqrt{\epsilon_r' - 1}}{\epsilon_r'} & \textrm{ Polarização vertical} \\
+   	\end{cases}
+\]
 
 onde \begin{math}\epsilon_r'\end{math} é a Permissividade relativa complexa, definida por:
 
-\[ 
-\epsilon_r' = \epsilon_r + i Z_0\sigma/k
-\]
-\[
-Z_0 = 376.62 \textrm{ ohm.}
-\]
+\begin{align}
+\label{eps_r} \epsilon_r' = \epsilon_r + i Z_0\sigma/k
+\end{align}
+\begin{align}
+\label{z_0} Z_0 = 376.62 \textrm{ ohm.}
+\end{align}
 A condutividade do solo $\sigma$ é expressa em siemens por metro. Seus possíveis valores podem são apresentados na tabela ~\ref{table:sigmainterval}
 
 \begin{table}[h]
@@ -310,26 +314,27 @@ Solo bom    & 25                      & 0.020                             \\
 
 A curvatura efetiva da terra $\gamma_e$ pode ser obtida através da fórmula:
 
-\[
-\gamma_e = \gamma_a/K
-\]
+\begin{align}
+\label{ge} \gamma_e = \gamma_a/K
+\end{align}
+
 
 Onde $\gamma_a$ é a curvatura real da terra e $K$ é o fator de raio efetivo da Terra. O valor normalmente é obtido através de sua formúla empírica:
-\[
-\gamma_e = \gamma_a(1-0.04665e^{N_s/N_1})
-\]
+\begin{align}
+\label{ge2} \gamma_e = \gamma_a(1-0.04665e^{N_s/N_1})
+\end{align}
 
 onde
 
-\[
-N_1 = 179.3 \text{ N-unidades, e } \gamma_a = 157 . 10^-9 \text{ m} ^-1 = 157 \text{ N-unidades/km.}
-\]
+\begin{align}
+\label{n_1} N_1 = 179.3 \text{ N-unidades, e } \gamma_a = 157 . 10^-9 \text{ m} ^-1 = 157 \text{ N-unidades/km.}
+\end{align}
 A refratividade da superfície \begin{math}N_s\end{math} é obtida a partir da análise das condições atmosféricas, como a temperatura, pressão e umidade relativa. Esse valor determina quantidade de sinal que é refratado pela atmosfera.
 Para simplificar a sua representação, a refratividade da superfície  é definida em termos de \begin{math}N_0\end{math}, a refratividade da superfície reduzida ao nível do mar.
 
-\[
-N_s = N_0e^{-z_s/z_1} \,\,\,\,\, \text{ sendo} \,\,\,\,\,\,\,\,\, z_1 = 9.46 \text{ km }
-\]
+\begin{align}
+\label{ns} N_s = N_0e^{-z_s/z_1} \,\,\,\,\, \text{ sendo} \,\,\,\,\,\,\,\,\, z_1 = 9.46 \text{ km }
+\end{align}
 Onde \begin{math}z_s\end{math} é a elevação geral da região envolvida. Para o modo ponto-a-ponto, esse valor é a média aritmética das elevações no caminho entre o transmissor e o receptor.
 Ao reduzirmos a refratividade da superfície ao nível do mar, podemos utilizar o mapa presente no relatório ~\cite{longleyricedelta} para obter um valor válido para \begin{math}N_s\end{math}. Os valores são apresentados na figura.~\ref{fig:nsmap} Esses dados podem ser resumidos em função do clima da região em estudo, listados na tabela ~\ref{table:climatetable}.
 
@@ -387,15 +392,15 @@ A altura efetiva de uma antena é a altura acima de um plano refletor, os valore
 
 O ângulo $\theta$ é obtido da seguinte forma:
 
-\[
-\theta = max(\theta_{e1} + \theta{e2}, -d_{L} \gamma e)
-\]
+\begin{align}
+\label{theta} \theta = max(\theta_{e1} + \theta{e2}, -d_{L} \gamma e)
+\end{align}
 
 onde
 
-\[
-d_L = d_{L1} + d_L{L2}
-\]
+\begin{align}
+\label{dl} d_L = d_{L1} + d_L{L2}
+\end{align}
 
 \subsubsection{Parâmetros adicionais para o modo área}
 
@@ -403,9 +408,9 @@ O modo área realiza a predição com menos informações sobre o terreno. Porta
 
 Os parâmetros \begin{math}h_{ei}, \, d_{Li}, \, \theta_{ei}, \, j=1,2\end{math} não são parâmetos de entrada nesse modo, porque nem sempre as informações específicas do terreno estão disponíveis.No modo área, eles são calculados empiricamente e o critério de localização é utilizado para determinar a altura efetiva da seguinte forma:
 
-\[
-h_{ei} = h_{gi} \,\,\,\,\, \text{Se o dipositivo está localizado aleatoriamente}
-\]
+\begin{align}
+\label{h_ei} h_{ei} = h_{gi} \,\,\,\,\, \text{Se o dipositivo está localizado aleatoriamente}
+\end{align}
 
 Se não, assuma que
 
@@ -416,29 +421,31 @@ Se não, assuma que
    
 e
 
-\[ B'_i = (B_i - H_1)sen(\frac{\pi}{2} min(h_g1/H_2,1)) + H_1 \textrm{, sendo $H_1 = 1$ m, $H_2 = 5$ m,} \]
+\[ B'_i = (B_i - H_1)sen(\frac{\pi}{2} min(h_g1/H_2,1)) + H_1 \textrm{, sendo $H_1 = 1$ m, $H_2 = 5$ m} \]
 
 com isso, a altura efetiva é calculada a partir da seguinte equação
 
-\[ h_{ei} = h_{gi} + B'_je^{-2h_{gi}/\Delta h} \]
+\begin{align} 
+\label{hei} h_{ei} = h_{gi} + B'_je^{-2h_{gi}/\Delta h}
+\end{align}
 
 Em seguida, utilizamos os valores das alturas para determinar $d_{Lsi}\, , i=1,2$, que são as distâncias do horizonte assumindo a Terra como perfeitamente esférica:
 
-\[
-d_{Lsi} = \sqrt{2h_{ei}/\gamma_e}
-\]
+\begin{align}
+\label{d_lsi} d_{Lsi} = \sqrt{2h_{ei}/\gamma_e}
+\end{align}
 
 Com isso, as distâncias do horizonte são obtidas
 
-\[
-d_{Lj} = d_{Lsj}e^{-0.07\sqrt{\Delta h / max(h_{ei},H_3)}} \,\,\,\, \text{com $H_3 = 5$ m}
-\]
+\begin{align}
+\label{d_lj} d_{Lj} = d_{Lsj}e^{-0.07\sqrt{\Delta h / max(h_{ei},H_3)}} \,\,\,\, \text{com $H_3 = 5$ m}
+\end{align}
 
 Por fim, os ângulos efetivos $\theta_{ei}, i=1,2$ são calculados através da fórmula:
 
-\[
-	\theta_{ei} = \frac{0.65\Delta h(d_{Lsi}/d_{Li} -1)}{d_{Lsi}}
-\]
+\begin{align}
+\label{oei} 	\theta_{ei} = \frac{0.65\Delta h(d_{Lsi}/d_{Li} -1)}{d_{Lsi}}
+\end{align}
 
 
 \subsubsection{Retorno do algoritmo}
@@ -447,15 +454,15 @@ Os parâmetros citados anteriormente são utilizados para computar a perda da tr
 
 Sejam $A_{lr}$, $A_{fs}$, $A_{ref}$ as atenuações do Longley-Rice, Free Spaces e de referência, respectivamente, o valor da atenuação retornada pelo modelo é:
 
-\[
-A_{lr} = A_{fs} + A_{ref}
-\]
+\begin{align}
+\label{a_lr} A_{lr} = A_{fs} + A_{ref}
+\end{align}
 
 Para calcular a atenuação (em dB) do Free Spaces, utiliza-se uma fórmula diferente da equação~\ref{potfree}:
 
-\[
-A_{fs} = 32.45 + 20 \log_{10}f + 20 \log_{10}d 
-\]
+\begin{align}
+\label{a_fs} A_{fs} = 32.45 + 20 \log_{10}f + 20 \log_{10}d 
+\end{align}
 
 Com a frequência $f$ em MHz e a distância $d$ em metros.
 
