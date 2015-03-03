@@ -4,12 +4,12 @@ O objetivo desse trabalho é tornar os dados apresentáveis e mais precisos do q
 
 \section{Página Web}
 
-Para visualização dos dados, o \textit{layout} do \textit{frontend} é apresentad na figura~\ref{fig:paginaweb}. Os modelos foram calculados anteriormente e armazenados no banco, como o capítulo anterior explicou.
+Para visualização dos dados, o \textit{layout} do \textit{frontend} é apresentado na figura~\ref{fig:paginaweb}. Os modelos foram calculados anteriormente e armazenados no banco, como o capítulo anterior explicou.
 Foram testados os seguintes modelos:
 
 \begin{itemize}
-\item Modelo Free Spaces
-\item Modelo Two Ray Ground
+\item Modelo Free Space
+\item Modelo Two-Ray Ground
 \item Modelo Log Distance, utilizando \begin{math}\alpha=3 \end{math}
 \item Modelo Longley-Rice, modo área
 \end{itemize}
@@ -26,7 +26,7 @@ Cada um desses modelos foi plotado no mapa, para a região do Estado do Rio de J
 
 \FloatBarrier
 
-\subsection{Modelo Free Spaces}
+\subsection{Modelo Free Space}
 
 A figura~\ref{fig:freespacesout} representa o mapa de calor gerado, representando a disponibilidade de canais utilizando o modelo Free Space. A figura~\ref{fig:freespacesin} representa o mapa de calor aumentando o seu zoom.
 
@@ -49,7 +49,7 @@ A figura~\ref{fig:freespacesout} representa o mapa de calor gerado, representand
 
 \FloatBarrier
 
-Como esperado, o espectro está bastante ocupado, pois o Free Spaces assume que não há obstáculos, portanto o raio de alcance da antena é muito grande. Com o máximo de 67 canais livres, mínimo de 8 e média de 9.08 canais.
+Como esperado, o espectro está bastante ocupado, pois o Free Space assume que não há obstáculos, portanto o raio de alcance da antena é muito grande. Com o máximo de 67 canais livres, mínimo de 8 e média de 9.08 canais.
 
 
 \subsection{Modelo Log Distance}
@@ -76,23 +76,23 @@ A figura~\ref{fig:logdistanceout} representa o mapa de calor gerado, representan
 
 Como podemos observar, com o Log Distance o mapa fica mais compreensível. Nesse modelo, temos a média de 55.42 canais livres, com máximo de 67 e mínimo de 13 canais.
 
-\subsection{Modelo Two Ray Ground}
+\subsection{Modelo Two-Ray Ground}
 
 A figura~\ref{fig:tworayout} representa o mapa de calor gerado, representando a disponibilidade de canais utilizando o modelo Free Space. A figura~\ref{fig:tworayin} representa o mapa de calor aumentando o seu zoom.
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=1.0\textwidth]{figs/tworayout}
-\caption[Mapa de calor para o modelo Two Ray Ground.]
-{Mapa de calor para o modelo Two Ray Ground.}
+\caption[Mapa de calor para o modelo Two-Ray Ground.]
+{Mapa de calor para o modelo Two-Ray Ground.}
 \label{fig:tworayout}
 \end{figure} 
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=1.0\textwidth]{figs/tworayin}
-\caption[Mapa de calor para o modelo Two Ray Ground com zoom.]
-{Mapa de calor para o modelo Two Ray Ground com zoom.}
+\caption[Mapa de calor para o modelo Two-Ray Ground com zoom.]
+{Mapa de calor para o modelo Two-Ray Ground com zoom.}
 \label{fig:tworayin}
 \end{figure} 
 
@@ -107,16 +107,16 @@ A figura~\ref{fig:longleyriceout} representa o mapa de calor gerado, representan
 \begin{figure}[htb]
 \centering
 \includegraphics[width=1.0\textwidth]{figs/longleyriceout}
-\caption[Mapa de calor para o modelo Two Ray Ground.]
-{Mapa de calor para o modelo Two Ray Ground.}
+\caption[Mapa de calor para o modelo Longley-Rice.]
+{Mapa de calor para o modelo Longley-Rice.}
 \label{fig:longleyriceout}
 \end{figure} 
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=1.0\textwidth]{figs/longleyricein}
-\caption[Mapa de calor para o modelo Two Ray Ground com zoom.]
-{Mapa de calor para o modelo Two Ray Ground com zoom.}
+\caption[Mapa de calor para o modelo Longley-Rice com zoom.]
+{Mapa de calor para o modelo Longley-Rice com zoom.}
 \label{fig:longleyricein}
 \end{figure} 
 
@@ -136,19 +136,19 @@ Embora possa haver o desperdício, o ideal seria escolher um modelo um pouco con
 
 \subsubsection{Modelo Free Space}
 
-O modelo Free Spaces foi o modelo em que os raios das antenas possuíam valores muito grandes. Com isso, é evidente que é o modelo mais sensível de todos os modelos apresentados, com a média pequena de canais livres.
+O modelo Free Space foi o modelo em que os raios das antenas possuíam valores muito grandes. Com isso, é evidente que é o modelo mais sensível de todos os modelos apresentados, com a média pequena de canais livres.
 
 \subsubsection{Log Distance}
 
-O modelo Log Distance, com \begin{math}\alpha = 3 \end{math}, foi consideravelmente menos sensível que o modelo Free Spaces. Pode-se notar que os espaços urbanos possuem o espectro quase inteiramente ocupado, diferentemente das regiões menos povoadas.
+O modelo Log Distance, com \begin{math}\alpha = 3 \end{math}, foi consideravelmente menos sensível que o modelo Free Space. Pode-se notar que os espaços urbanos possuem o espectro quase inteiramente ocupado, diferentemente das regiões menos povoadas.
 
-\subsubsection{Two Ray}
+\subsubsection{Two-Ray}
 
-O modelo Two Ray também é menos sensível que o Free Spaces, porém é mais conservador que o Log Distance. Ao levar em conta o sinal refletido na superfície, era esperado que fosse mais conservador. Porém, nota-se que o padrão é o mesmo que no modelo Log Distance, ou seja, as regiões urbanas possuem o espectro de frequência muito ocupado, em detrimento das regiões rurais.
+O modelo Two-Ray também é menos sensível que o Free Space, porém é mais conservador que o Log Distance. Ao levar em conta o sinal refletido na superfície, era esperado que fosse mais conservador. Porém, nota-se que o padrão é o mesmo que no modelo Log Distance, ou seja, as regiões urbanas possuem o espectro de frequência muito ocupado, em detrimento das regiões rurais.
 
 \subsubsection{Longley-Rice}
 
-O modelo Longley-Rice por sua vez, é o modelo menos conservador de todos. Por levar em conta as informações do terreno, a atenuação é consideravelmente maior. Nota-se o mesmo padrão dos modelos Two Ray e Log Distance para os espaços urbanos, porém o alcance das antenas é consideravelmente menor, por conta do relevo bastante acidentado do estado do Rio de Janeiro.
+O modelo Longley-Rice por sua vez, é o modelo menos conservador de todos. Por levar em conta as informações do terreno, a atenuação é consideravelmente maior. Nota-se o mesmo padrão dos modelos Two-Ray e Log Distance para os espaços urbanos, porém o alcance das antenas é consideravelmente menor, por conta do relevo bastante acidentado do estado do Rio de Janeiro.
 
 \subsection{Conclusão}
 

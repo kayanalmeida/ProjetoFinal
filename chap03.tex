@@ -33,11 +33,11 @@ Atualmente, a linguagem é utilizada não só para melhorar a experiência do us
 
 \subsection{CSS}
 
-Com o desenvolvimento da Web, notou-se que as \textit{tags} do HTML estavam ficando muito grandes, com muitos atributos, o que acabava dificultando a manutenção do código. Com isso, visando extrair do HTML os parâmetros referentes ao estilo da página, surgiu o Cascading Style Sheets (CSS) ~\abbrev{CSS}{Cascading Style Sheets}, linguagem utilizada na formatação do estilo da página. Atualmente, sua versão é o CSS3, com suporte à animação de elementos do HTML.
+Com o desenvolvimento da Web, notou-se que as \textit{tags} do HTML estavam ficando muito grandes, com muitos atributos, o que acabava dificultando a manutenção do código. Com isso, visando extrair do HTML os parâmetros referentes ao estilo da página, surgiu o Cascading Style Sheets (CSS)\abbrev{CSS}{Cascading Style Sheets}, linguagem utilizada na formatação do estilo da página. Atualmente, sua versão é o CSS3, com suporte à animação de elementos do HTML.
 
 \subsection{Implementação}
 
-Com a utilzação das linguagens citadas anteriormente, foi criada uma página Web, onde o usuário é capaz de observar um mapa de calor representando a ocupação das faixas de frequência no intervalo da Tv analógica, e consultar a base para obter em um ponto específico, a quantidade de canais livres e as informações de frequência dos mesmos.
+Com a utilzação das linguagens citadas anteriormente, foi criada uma página Web, onde o usuário é capaz de observar um mapa de calor representando a ocupação das faixas de frequência no intervalo da TV analógica, e consultar a base para obter em um ponto específico, a quantidade de canais livres e as informações de frequência dos mesmos.
 
 
 \subsubsection{Estrutura da Página}
@@ -45,7 +45,7 @@ Com a utilzação das linguagens citadas anteriormente, foi criada uma página W
 Para acessar a página, basta acessar a URL abaixo. Os arquivos com a implementação da página estão presentes na pasta \textit{frontend}, no diretório do servidor.
 
 \begin{itemize}
-\item http://servidor/home
+\item http://servidor/home\footnote{O servidor pode ser acessado na URL http://qosmo.dyndns.org:8182/home}
 \end{itemize}
 
 Ao carregar a página, um mapa é apresentado à direita, e quatro opções à esquerda. Essas opções consistem no modelo a ser exibido. Dentro do mapa, há um marcador que pode ser movido e em seguida uma consulta é enviada ao servidor, passando como parâmetro a localização do marcador e o modelo selecionado. Como resposta, uma lista é apresentada com os canais livres e sua frequência naquela localização.
@@ -104,7 +104,7 @@ No trabalho realizado anteriormente, o servidor só era acessado via URL e suas 
 
 Para a implementação do Longley-Rice, foi necessário realizar alterações no servidor previamente desenvolvido. 
 
-Foi criada uma nova classe, que herdava de \textit{PropagationModel}, assim como os outros modelos implementados anteriormente~\cite{tccmarcelo}. A nova classe \textit{LongleyRice} implementa os métodos \textit{
+Foi criada uma nova classe, que herda de \textit{PropagationModel}, assim como os outros modelos implementados anteriormente~\cite{tccmarcelo}. A nova classe \textit{LongleyRice} implementa os métodos \textit{
 interferes()} e \textit{maxDistance()}. O método \textit{maxDistance()} determina o alcance máximo do dispositivo, enquanto o método \textit{interferes()} determina se a soma dos raios dos alcances dos dispositivos primário e secundários supera a distância física entre eles.
 
 \begin{lstlisting}

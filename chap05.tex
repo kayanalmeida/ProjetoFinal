@@ -14,7 +14,7 @@ A seguir serão enumeradas, em ordem de importância, maneiras de dar continuida
 
 A ANATEL é a agência brasileira responsável por conceder a utilização dos canais de frequência do território brasileiro. Para a BSDWS funcionar corretamente, é preciso interagir com essa agência e obter regras de utilização dos canais. Alguns podem ser reservados para outras finalidades em determinadas regiões e atualmente a base não implementa essas regras de uso.
 
-Além disso, os dados disponíveis não são muito confiáveis. A ANATEL disponibiliza um arquivo com as informações das antenas, nesse arquivo, verificou-se que certas antenas possuínal altura negativa, o que é fisicamente impossível. Além disso, notou-se antenas que segundo o arquivo pertenciam ao estado do Rio de Janeiro, quando na verdade pertenciam à São Paulo, ou mesmo se encontravam no meio do oceano. Também foram encontradas antenas com potências negativas, ou com valor nulo, o que torna o algoritmo inútil, pois são valores absurdos.
+Além disso, os dados disponíveis não são muito confiáveis. A ANATEL disponibiliza um arquivo com as informações das antenas, nesse arquivo, verificou-se que certas antenas possuíam altura negativa, o que é fisicamente impossível. Além disso, notou-se antenas que segundo o arquivo pertenciam ao estado do Rio de Janeiro, quando na verdade pertenciam à São Paulo, ou mesmo se encontravam no meio do oceano. Também foram encontradas antenas com potências negativas, ou com valor nulo, o que torna o algoritmo inútil, pois são valores absurdos.
 
 Para resolver esses problemas, a base deveria ser capaz de se comunicar diretamente com um serviço Web da ANATEL, que verificasse erros, enviasse atualizações das antenas e outras informações pertinentes. Com isso, a base estaria sincronizada com os dados do órgão, e o mesmo teria mais informações do espectro do território brasileiro, no final, ambos sairiam ganhando
 
@@ -24,12 +24,13 @@ Portanto, sugere-se que:
 \item Seja desenvolvido um Web Service para disponibilizar todas as informações disponíveis sobre os dispositivos primários. Atualmente a carga deve ser feita manualmente, pois é disponibilizado apenas um arquivo, o que torna o processo lento, já que é feito manualmente.
 \item Seja realizado uma revisão dos dados presentes no arquivo. Foram detectados diversos erros no arquivo e isso impacta diretamente na eficiência de todos os modelos de propagação implementados. O Web Service desenvolvido poderia notificar a agência reguladora sobre os erros encontrados no arquivo, visando facilitar a correção dos mesmos pela agência.
 \item Seja informado à base as regras de utilização dos canais, além de um canal para alterações emergenciais na base pela ANATEL.
+\item A base seja atualizada com todos os canais livres do Brasil. Para isso, é necessário atualizar as tabelas com as informações das antenas e incluir as de outros estados. Feito isso, basta modificar os parâmetros de latitude e longitude presentes no arquivo \textit{wsdb.js}. Atualmente esse parâmetros representam um retângulo englobando o estado do Rio de Janeiro, logo, modificando-os para conter o Estado brasileiro, o servidor realizará o cálculo para todo o país.
 \end{itemize}
 
 
 \subsection{Cálculo de Disponibilidade}
 
-O novo modelo implementado, leva em conta as informações do relevo, portanto é mais preciso que os modelos implementados anteriormente. Porém, ainda pode ser melhorado, com ajustes para espaços urbanos e espaços rurais, onde a quantidade de obstáculos é consideravelmente menor.
+O novo modelo de propagação implementado, leva em conta as informações do relevo, portanto é mais preciso que os modelos anteriores. Porém, ainda pode ser melhorado, com ajustes para espaços urbanos e espaços rurais, onde a quantidade de obstáculos é consideravelmente menor.
 
 Outra importante observação é que os modelos dependem diretamente da confiabilidade dos dados, isso deve ser verificado periodicamente.
 

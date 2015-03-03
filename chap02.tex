@@ -4,7 +4,9 @@
 
 Um protótipo de uma Base de Dados de WhiteSpace (BDWS)
 \abbrev{BDWS}{Bases de Dados de WhiteSpace}
-foi implementado anteriormente por Marcelo Machado em seu trabalho de conclusão de curso~\cite{tccmarcelo}. Essa base é capaz de indicar a um US os canais livres no espectro de frequência, permitindo sua utilização. Para isso, a base possui informações sobre todos os UPs presentes. É passado como parâmetro de entrada a localização do US e a base retorna uma resposta com a lista de canais disponíveis para uso.
+foi implementado anteriormente por Marcelo Machado em seu trabalho de conclusão de curso~\cite{tccmarcelo}. Essa base é capaz de indicar a um Usuário Secundário os canais livres no espectro de frequência, permitindo sua utilização. Para isso, a base possui informações sobre todos os Usuários Primários presentes. 
+
+Para obter uma lista com os canais livres em uma dada localização, é enviado como parâmetro de entrada a localização do US e a base, através de diferentes modelos de propagação, retorna a lista de White Spaces.
 
 O espectro de frequência é extenso e utilizado para várias finalidades, como Transmissão de dados para satélites, rádio navegação e transmissão de TV. Atualmente, a base implementada possui apenas informações referentes ao espectro de transmissão de TV, que vai de 54 Mhz até 806Mhz~\cite{fccalloc} .
 
@@ -12,7 +14,7 @@ A base possui as informações referentes às antenas de televisão que operam n
 
 \section{Cálculo dos Canais Disponíveis}
 
-O servidor consulta o banco de dados e coleta as informações das antenas presentes no Estado do Rio de Janeiro. A partir de sua altura e potência, calcula-se o alcance máximo para cada antena, dependendo do modelo de propagação do sinal. O alcance máximo é definido como: "A distância máxima da base da antena que um dispositivo pode estar para receber o sinal transmitido por ela com uma relação sinal/ruído mínima. Assume-se que o dispositivo não sofre nenhuma interferência além de duas vezes ruído de fundo". Os dispositivos que possuírem uma distância menor que o raio da antena, receberão o sinal com qualidade suficiente. Já os dispositivos com distancia da antena maior que seu raio, estarão fora do alcance da mesma, podendo utilizar esse canal para transmissão de seus dados. Essa condição é necessária para que um US possa transmitir dados nessa frequência sem causar interferências.
+O servidor consulta o banco de dados e coleta as informações das antenas presentes no Estado do Rio de Janeiro. A partir de sua altura e potência, calcula-se o alcance máximo para cada antena, dependendo do modelo de propagação do sinal. O alcance máximo é a distância máxima na qual um receptor pode estar da antena para receber o sinal transmitido por ela com uma relação sinal/ruído mínima. Os dispositivos que possuírem uma distância menor que o raio da antena receberão o sinal com qualidade suficiente. Já os dispositivos com distancia da antena maior que seu raio, estarão fora do alcance da mesma, podendo utilizar esse canal para transmissão de seus dados. Essa condição é necessária para que um US possa transmitir dados nessa frequência sem causar interferências.
 
 Assumindo um Usuário Primário P com alcance \begin{math}p\end{math} e um Usuário Secundário S com alcance \begin{math}s\end{math}. Sendo D a distância entre P e S. O US S poderá transmitir dados utilizando o canal de P somente se:
 
@@ -50,7 +52,7 @@ O ruído de fundo, em Watts, é definido como:
   \label{noise} Noise=kTB
 \end{align}
 
-Aonde \textit{k} é a constante de Boltzman, \textit{T} é a temperatura do ambiente e \textit{B} é a banda em hertz.
+Aonde \textit{k} é a constante de Boltzman, \textit{T} é a temperatura do ambiente em Kelvin e \textit{B} é a banda em hertz.
 
 Assim, pelas equações~\ref{actSinr} e~\ref{noise} tem-se que a potência mínima do receptor é:
 
@@ -64,21 +66,21 @@ O valor da relação sinal/ruído deve ser convertido para W de forma a facilita
   \label{SinrW} 10= 10 log_{10} (SINR_W)
 \end{align}
 
-De modo que a potência do sinal emitido pela antena em seu alcance máximo será:
+De modo que a potência de recepção do sinal em seu alcance máximo será:
 
 \begin{align}
-  \label{minPotAnt} P_{a}= 10kTB
+  \label{minPotAnt} P_{r}^{UP}= 10kTB
 \end{align}
 
  No entanto, o dispositivo que utiliza o WS não pode interferir com os receptores da antena. Dessa forma, seu sinal deve ser atenuado até atingir o valor do ruído de fundo. Assim sendo, a relação sinal/ruído deve ser de 0dB. De modo que podemos determinar a potência no alcance máximo do dispositivo como sendo:
 
 \begin{align}
-  \label{minPotDev} P_{d}=  kTB
+  \label{minPotDev} P_{r}^{US}=  kTB
 \end{align}
 
 \subsubsection{Free Space}
 
-O modelo de propagação Free Space assume que o transmissor e o receptor possuem um caminho em linha reta, sem obstáculos próximos que possam causar os fenômenos de difração ou interferência. Esse modelo raramente é utilizado exclusivamente, normalmente faz parte de um modelo maior, como o Longley-Rice. Por desconsiderar as irregularidades do solo e assumir que o meio é sem obstrução, os alcances acabam sendo muito maiores do que a realidade. O modelo é ilustrado na figura abaixo\ref{fig:freespaces}.
+O modelo de propagação Free Space assume que o transmissor e o receptor possuem um caminho em linha reta, sem obstáculos próximos que possam causar os fenômenos de difração ou interferência. Esse modelo raramente é utilizado exclusivamente. Normalmente, ele faz parte de um modelo maior, como o Longley-Rice. Por desconsiderar as irregularidades do solo e assumir que o meio é sem obstrução, os alcances acabam sendo muito maiores do que a realidade. O modelo é ilustrado na figura ~\ref{fig:freespaces}.
 
 \begin{figure}[htb]
 \centering
@@ -94,13 +96,13 @@ A potência recebida pelo receptor quando o transmissor se encontra a uma distâ
   \label{potfree} P_r(d) =\frac{ P_tG_tG_r\lambda^{2}}{(4\pi)^{2}d^{2}L}
 \end{align}
 
-\begin{math}G_t\end{math} e \begin{math}G_r\end{math} são os ganhos do transmissor e receptor respectivamente. Foi assumido que a potência indicada pela ANATEL é, na verdade, \begin{math}P_tG_t\end{math}, enquanto \begin{math}G_r\end{math} foi desconsiderado.
+\begin{math}G_t\end{math} e \begin{math}G_r\end{math} são os ganhos do transmissor e receptor respectivamente. Foi assumido que a potência indicada pela ANATEL é, na verdade, \begin{math}P_tG_t\end{math}, ou seja, a potência efetiva, enquanto \begin{math}G_r\end{math} foi desconsiderado.
 
 \begin{align}
   \label{ganho} G_r = 1
 \end{align}
 
-\textit{L} representa o fator de perda não relacionado ao modelo de propagação. L também foi desconsiderado.
+\textit{L} representa o fator de perda não relacionado ao modelo de propagação (Perdas na transmissão, recepção ou meios guiados). L também foi desconsiderado.
 
 \begin{align}
   \label{loss} L = 1
@@ -124,7 +126,7 @@ De maneira análoga, o alcance de um US pode ser determinado pelas equações~\r
   \label{dFreeDev} d_2 = \sqrt{\frac{P_t\lambda^{2}}{kTBL(4\pi)^{2}}}
 \end{align}
 
-\subsubsection{Two Ray Ground}
+\subsubsection{Two-Ray Ground}
 
 \begin{figure}[htb]
 \centering
@@ -134,7 +136,7 @@ De maneira análoga, o alcance de um US pode ser determinado pelas equações~\r
 \label{fig:tworay}
 \end{figure}
 
-O modelo Two Ray Ground leva em consideração dois caminhos: O primeiro é equivalente ao Free Spaces, ou seja, um caminho direto do transmissor ao receptor e o segundo é um caminho que incide no solo e é refletido para o receptor. Um exemplo é ilustrado na figura~\ref{fig:tworay}.
+O modelo Two Ray Ground leva em consideração dois caminhos: O primeiro é equivalente ao Free Space, ou seja, um caminho direto do transmissor ao receptor e o segundo é um caminho que incide no solo e é refletido para o receptor. Um exemplo é ilustrado na figura~\ref{fig:tworay}.
 
 A potência recebida pelo receptor quando o transmissor se encontra a uma distância \textit{d} é definida~\cite{rapapport} como: 
 
@@ -207,7 +209,7 @@ e Ultra High Frequency(UHF)
 
 Publicado em 1968 por Anita Longley e Phil Rice, esse modelo foi proposto para ser utilizado em um computador e foi criado de forma a abranger diversas combinações de frequências, distâncias, terrenos e climas para ambas polarizações - vertical e horizontal- de uma antena~\cite{longleyrice}.
 
-O Longley-Rice é capaz de predizer a atenuação de dois modos diferentes: o modo área e o modo ponto-a-ponto. O modo área utiliza informações médias de um perfil do terreno para realizar o cálculo da atenuação. Já o modo ponto-a-ponto utiliza informações específicas do caminho entre o transmissor e o receptor para realização o cálculo da atenuação.
+O Longley-Rice é capaz de predizer a atenuação de dois modos diferentes: o modo área e o modo ponto-a-ponto. O modo área utiliza informações médias de um perfil do terreno para realizar o cálculo da atenuação. Já o modo ponto-a-ponto utiliza informações específicas do caminho entre o transmissor e o receptor para realização do cálculo da atenuação.
 
 \subsubsection{Parâmetros de Entrada}
 
@@ -274,7 +276,7 @@ Refratividade da Superfície & 250 a 400 N-unidades
 \end{tabular}
 \end{table}
 
-A polarização da antena pode ser horizontal ou vertical e afeta o valor da impedância da superfície \begin{math}Z_g\end{math}, ibtida pela análise da permissividad e condutividade do solo em relação à polarização das ondas. A impedância característica do solo em relação a sua polarização é apresentada a seguir:
+A polarização da antena pode ser horizontal ou vertical e afeta o valor da impedância da superfície \begin{math}Z_g\end{math}, obtida pela análise da permissividade e condutividade do solo em relação à polarização das ondas. A impedância característica do solo em relação a sua polarização é apresentada a seguir:
 
 \[
 	      Z_g = \begin{cases} 
@@ -363,13 +365,13 @@ Marítimo Sub-tropical       & 370                                    \\
 \centering
 \includegraphics[width=0.8\textwidth]{figs/nsmap}
 \caption[Refratividade média da superfície reduzida ao nível do mar.]
-{Refratividade média da superfície reduzida ao nível do mar.}
+{Refratividade média da superfície reduzida ao nível do mar.~\cite{longleyrice}}
 \label{fig:nsmap}
 \end{figure}
 
 \subsubsection{Parâmetros adicionais para o modo ponto-a-ponto}
 
-Cada modo depende de diferentes parâmetros de entrada.Nos modo ponto-a-ponto, informações detalhadas do terreno para o caminho entre o transmisso e receptor estão disponíveis, as variáveis adicionais de entrada utilizados pelo algoritmo nesse modo são:
+Cada modo depende de diferentes parâmetros de entrada. No modo ponto-a-ponto, informações detalhadas do terreno para o caminho entre o transmissor e receptor estão disponíveis, as variáveis adicionais de entrada utilizados pelo algoritmo nesse modo são:
 
 \begin{itemize}
 \item \begin{math}h_{e1}, h_{e1}\end{math} Alturas efetivas das antenas
@@ -405,7 +407,7 @@ onde
 
 O modo área realiza a predição com menos informações sobre o terreno. Portanto, apenas um parâmetro é levado em consideração: o critério de localização do receptor, que pode assumir apenas três valores: Aleatório, com cautela ou com muita cautela.
 
-Os parâmetros \begin{math}h_{ei}, \, d_{Li}, \, \theta_{ei}, \, j=1,2\end{math} não são parâmetos de entrada nesse modo, porque nem sempre as informações específicas do terreno estão disponíveis.No modo área, eles são calculados empiricamente e o critério de localização é utilizado para determinar a altura efetiva da seguinte forma:
+Os parâmetros \begin{math}h_{ei}, \, d_{Li}, \, \theta_{ei}, \, j=1,2\end{math} não são parâmetos de entrada nesse modo, porque nem sempre as informações específicas do terreno estão disponíveis. No modo área, eles são calculados empiricamente e o critério de localização é utilizado para determinar a altura efetiva da seguinte forma:
 
 \begin{align}
 \label{h_ei} h_{ei} = h_{gi} \,\,\,\,\, \text{Se o dipositivo está localizado aleatoriamente}
@@ -449,15 +451,15 @@ Por fim, os ângulos efetivos $\theta_{ei}, i=1,2$ são calculados através da f
 
 \subsubsection{Retorno do algoritmo}
 
-Os parâmetros citados anteriormente são utilizados para computar a perda da transmissão. O resultado é um valor de atenuação calculado através do somatório de duas atenuações: A primeira é utilizando o Free-Spaces citado anteriormente enquanto a segunda é uma atenuação de referência, que pode ser calculada de diferentes maneiras, dependendo da distância entre os dispositivos.
+Os parâmetros citados anteriormente são utilizados para computar a perda da transmissão. O resultado é um valor de atenuação calculado através do somatório de duas atenuações: A primeira é utilizando o Free Space citado anteriormente enquanto a segunda é uma atenuação de referência, que pode ser calculada de diferentes maneiras, dependendo da distância entre os dispositivos.
 
-Sejam $A_{lr}$, $A_{fs}$, $A_{ref}$ as atenuações do Longley-Rice, Free Spaces e de referência, respectivamente, o valor da atenuação retornada pelo modelo é:
+Sejam $A_{lr}$, $A_{fs}$, $A_{ref}$ as atenuações do Longley-Rice, Free Space e de referência, respectivamente, o valor da atenuação retornada pelo modelo é:
 
 \begin{align}
 \label{a_lr} A_{lr} = A_{fs} + A_{ref}
 \end{align}
 
-Para calcular a atenuação (em dB) do Free Spaces, utiliza-se uma fórmula diferente da equação~\ref{potfree}:
+Para calcular a atenuação (em dB) do Free Space, utiliza-se uma fórmula diferente da equação~\ref{potfree}:
 
 \begin{align}
 \label{a_fs} A_{fs} = 32.45 + 20 \log_{10}f + 20 \log_{10}d 
@@ -467,7 +469,7 @@ Com a frequência $f$ em MHz e a distância $d$ em metros.
 
 \subsubsection{Atenuação de Referência $A_{ref}$}
 
-A atenuação de referência é calculada usando metódos baseados em diferentes modelos de propagação, para três intervalos de distâncias distintas. Na região onde a superfície da terra não interrompe a propagação do sinal, chamada de linha de visada (Line of Sight), o modelo utilizado é o Two Ray, somado ao Free Spaces mencionado anteriormente.
+A atenuação de referência é calculada usando metódos baseados em diferentes modelos de propagação, para três intervalos de distâncias distintas. Na região onde a superfície da terra não interrompe a propagação do sinal, chamada de linha de visada (Line of Sight), o modelo utilizado é o Two-Ray, somado ao Free Space mencionado anteriormente.
 
 Na região entre $d_{L1}$ e $d_{L2}$, o modelo que prevalece é o de difração\cite{rufford}. Nele, são utilizadas dois modelos para calcular a atenuação: A atenuação de goma dupla de faca e atenuação desenvolvida por Vogler para uma região de difração distante, assumindo a terra perfeitamente esférica~\cite{vogler}.
 
@@ -512,7 +514,7 @@ Os dados foram obtidos diretamente do site da ANATEL~\cite{channelstable}, de fo
 
 Desse arquivo foram extraídas informações das antenas cujo campo $Estado$ era "RJ".
 
-Para identificar qual o canal que uma antena operava, foram utilizados os campos $Canal$ e $Complemento\, do\, Canal$.
+Para identificar qual o canal que uma antena opera, foram utilizados os campos $Canal$ e $Complemento\, do\, Canal$.
 
 Os campos $Latitude$ e $Longitude$ informam a posição da antena no planeta, no formato grau-minuto-segundo, com uma letra indicando a direção da bússola. Essas informações foram convertidas para o formato decimal, para o caso do Estado do Rio de Janeiro, assumiram valores negativos pois o estado está localizado à Oeste e Sul do globo.
 
@@ -678,12 +680,12 @@ O design do banco de dados pode ser observado na figura ~\ref{fig:databasebefore
 Como citado na seção anterior, o servidor realiza a consulta ao banco de dados e obtém as informações dos UPs, em seguida aplica um dos modelos de propagação implementados e retorna uma lista com os canais livres baseada na posição geográfica do US.
 
 \subsection{REST}
-\textit{Representational State Transfer(REST)} é um padrão de arquitetura de software. Consiste em diretrizes para criação de \textit{Web Services} escaláveis e é amplamente utilizado na Web, por ser uma alternativa mais simples ao \textit{Simple Object Access Protocol (SOAP)} e \textit{Web Services Description Language (WSDL)},
+\textit{Representational State Transfer (REST)} é um padrão de arquitetura de software. Consiste em diretrizes para criação de \textit{Web Services} escaláveis e é amplamente utilizado na Web, por ser uma alternativa mais simples ao \textit{Simple Object Access Protocol (SOAP)} e \textit{Web Services Description Language (WSDL)},
  criado em 2000, na tese doutorado de Roy T. Fielding ~\cite{restcreator}.
  
 Além de simplificar as interfaces, esse padrão é performático e escalável.
 
-Sistemas REST tipicamente utilizam o protocolo HTTP com os mesmos métodos (GET,POST,PUT E DELETE) utilizado pelos browsers para carregar páginas e enviar dados à servidores.
+Sistemas REST tipicamente utilizam o protocolo HTTP com os mesmos métodos (GET,POST,PUT E DELETE) utilizado pelos browsers para carregar páginas e enviar dados a servidores.
 
 Ele assume que a base consiste de recursos, que podem ser acessados via URL. Cada recurso tem seu próprio identificador, denominado \textit{Unified Resource Identifier}(URI).
 
@@ -698,9 +700,9 @@ Esse recursos, por sua vez, são acessados por requisições HTTP, divididos em 
 \item DELETE - utilizado para excluir um recurso
 \end{itemize}
 
-O POST e o PUT são bastante semelhantes, mas segundo a especificação do HTTP ~\cite{RFC2616}, o método POST deve ser utilizado na criação de um novo recurso, enquanto o PUT somente para a alteração de recursos criados anteriormente. No entando, o POST também é utilizado para alteração de recursos já existentes na base e foi utilizado dessa forma também no desenvolvimento do Web Service deste trabalho.
+O POST e o PUT são bastante semelhantes, mas segundo a especificação do HTTP ~\cite{RFC2616}, o método POST deve ser utilizado na criação de um novo recurso, enquanto o PUT somente para a alteração de recursos criados anteriormente. No entanto, o POST também é utilizado para alteração de recursos já existentes na base e foi utilizado dessa forma também no desenvolvimento do Web Service deste trabalho.
 
-Não existe uma forma padrão para a resposta do servidor ao cliente. Entretanto, isso muitas vezes é feito via JSON ou XML, já que estes formatos apresentam uma forma mais estruturada. No servidor desenvolvido o formato de resposta escolhido foi o XML e posteriormente algumas respostas foram modificadas para JSON, visando uma melhor comunicação com a interface Web.
+Não existe uma forma padrão para a resposta do servidor ao cliente. Entretanto, isso muitas vezes é feito via JSON ou XML, já que estes formatos apresentam uma forma mais estruturada. No servidor desenvolvido, o formato de resposta escolhido foi o XML e posteriormente algumas respostas foram modificadas para JSON, visando uma melhor comunicação com a interface Web.
 
 \begin{figure}[clientserver]
 \centering
@@ -711,7 +713,7 @@ Não existe uma forma padrão para a resposta do servidor ao cliente. Entretanto
 \end{figure}
 
 
-Um possível fluxo de uma requisição pode ser seguinte maneira:
+Um possível fluxo de uma requisição pode ser da seguinte maneira:
 
 \begin{itemize}
 \item O cliente faz um pedido HTTP através de uma URL ao servidor
@@ -722,11 +724,11 @@ Um possível fluxo de uma requisição pode ser seguinte maneira:
 
 
 \subsection{Classes}
-A linguagem utilizada para a implemetanção do servidor foi Java, uma linguagem orientada a objetos onde todos os arquivos são classes. O padrão de desenvolvimento adotado por Machado~\cite{tccmarcelo} foi o de Fábricas.
+A linguagem utilizada para a implemetanção do servidor foi Java, uma linguagem orientada a objetos onde todos os arquivos são classes. O padrão de desenvolvimento adotado por Machado~\cite{tccmarcelo} foi o de Fábricas (\textit{Factories}).
 
 Esse padrão de desenvolvimento consiste em definir interfaces nas quais os objetos devem estender. Existem também objetos Fábrica, que são responsáveis pela instanciação dos objetos que implementam as interfaces citadas anteriormente. Dessa forma, nenhum objeto é referenciado diretamente.
 
-As classes \textit{Factories} implementadas são representadas na figura abaixo~\ref{fig:facto}
+As classes \textit{Factories} implementadas são representadas na figura ~\ref{fig:facto}.
 
 \begin{figure}[htb]
 \centering
@@ -822,4 +824,4 @@ A comunicação com o servidor é realizada via API, onde uma URL é enviada atr
 \end{itemize}
 \end{itemize}
 
-Uma descrição mais detalhada do funcionamento da API e as classes relacionadas, parâmetros de entrada e o formato da resposta do servidor pode ser encontrada na tese de Machado ~\cite{tccmarcelo}.
+Uma descrição mais detalhada do funcionamento da API e as classes relacionadas, parâmetros de entrada e o formato da resposta do servidor pode ser encontrada no projeto final de Machado ~\cite{tccmarcelo}.

@@ -1,23 +1,15 @@
 \chapter{Introdução}
 
-O espectro de frequências utilizado para a transmissão de dados é um bem finito. De acordo com estimativas da empresa de redes e telecomunicações Cisco~\cite{ciscoforecast}, estima-se que em 2018, 20,6 bilhões de dispositivos de rede estarão em funcionamento e o tráfego de dispositivos móveis e sem fio serão maiores do que os dispositivos cabeados. O tráfego de dados na Internet atingirá a marca de 102,2 Exabytes por mês. Esse crescimento rápido tem como consequencia o congestionamento do meio de transmissão dos dados. Como as frequências são limitadas, torna-se necessária a otimização do uso dos canais.
+O espectro de frequências utilizado para a transmissão de dados é um bem finito. De acordo com estimativas da empresa de redes e telecomunicações Cisco~\cite{ciscoforecast}, estima-se que em 2018, 20,6 bilhões de dispositivos de rede estarão em funcionamento e o tráfego de dispositivos móveis e sem fio será maior do que o dos dispositivos cabeados. Esse crescimento rápido tem como consequencia o congestionamento do meio de transmissão dos dados. Como as frequências são limitadas, torna-se necessária a otimização do uso dos canais.
 
-\begin{figure}[htb]
-\centering
-\includegraphics[width=1.0\textwidth]{figs/internet_traffic}
-\caption[Estimativa de tráfego diário de dados na Internet]
-{Estimativa de tráfego diário de dados na Internet}
-\label{fig:trafegodiariointernet}
-\end{figure} 
-
-O uso desses canais é regulamentado por agências governamentais, uma para cada país. No Brasil existe a Agência Nacional de Telecomunicações (ANATEL),
+O uso desses canais é regulamentado por agências governamentais, uma para cada país. No Brasil, existe a Agência Nacional de Telecomunicações (ANATEL),
 \abbrev{ANATEL}{Agência Nacional de Telecomunicações}
 nos Estados Unidos são regulamentadas pela Federal Communications Commission (FCC),
 \abbrev{FCC}{Federal Communications Commission}
 na Europa o licenciamento fica a cargo da Electronic Communications Committee (ECC)
 \abbrev{ECC}{Electronic Communications Committee}.
 
-As entidades podem comprar o direito de uso de um determinado canal de frequencia para uma determinada região. Com isso, tornam-se "Usuários Primários" (UP) \abbrev{UP}{Usuário Primário} daquele canal. Porém, observa-se uma sub-utilização do canal, pois a entidade que o comprou não utiliza em toda a extensão da região. Esses espaços não utilizados, mas com UP, ou seja, com o direito de uso comprado por uma entidade, são chamados de WhiteSpaces (WS).
+As entidades podem comprar o direito de uso de um determinado canal de frequência para uma determinada região. Com isso, tornam-se "Usuários Primários" (UP) \abbrev{UP}{Usuário Primário} daquele canal. Porém, observa-se uma sub-utilização do canal, pois a entidade que o comprou não utiliza em toda a extensão da região. Esses espaços não utilizados, mas com UP, ou seja, com o direito de uso comprado por uma entidade, são chamados de WhiteSpaces (WS).
 \abbrev{WS}{WhiteSpaces}
   
 Esses WSs poderiam ser utilizados efetivamente por outros dispositivos, porém não são detentores da licença, gerando um desperdício de canal.
@@ -26,27 +18,27 @@ Pela definição do IEEE~\cite{ieee80222}, rádios cognitivos são dispositivos 
 \abbrev{US}{Usuários Secundários}
 devem ser capazes de determinar as frequências disponíveis.
 
-Com isso, um rádio cognitivo é capaz de avaliar o espectro de frequencia e escolher um canal livre para transmissão de dados, esse canal não pode estar sendo usado naquela região pelos UPs, senão geraria interferência. Não é do escopo desse trabalho o modo como o rádio cognitivo realiza a troca de canais. É assumido que os rádios cognitivos modificam sua frequência de transmissão de acordo com o canal que for selecionado.
+Com isso, um rádio cognitivo é capaz de avaliar o espectro de frequência e escolher um canal livre para transmissão de dados, esse canal não pode estar sendo usado naquela região pelos UPs, senão geraria interferência. Não é do escopo desse trabalho o modo como o rádio cognitivo realiza a troca de canais. É assumido que os rádios cognitivos modificam sua frequência de transmissão de acordo com o canal que for selecionado.
 
-Caso ocorra uma interferência, ou seja, quando um UP e um US estão compartilhando o canal, o rádio cognitivo deve interromper a transmissão imediatamente e buscar por outros canais livres.
+Caso ocorra uma interferência, ou seja, quando um UP e um US estão transmitindo na mesma frequência, gerando uma superposição das ondas e consequentemente a perda de informação, o rádio cognitivo deve interromper a transmissão imediatamente e buscar por outros canais livres.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=1.0\textwidth]{figs/cr_functioning_over_time}
+\includegraphics[width=0.8\textwidth]{figs/cr_functioning_over_time}
 \caption[Comportamento do rádio cognitivo em função do tempo]
 {Comportamento do rádio cognitivo em função do tempo}
 \label{fig:funcionamentodoradiocognitivo}
 \end{figure} 
 
-Um rádio cognitivo pode utilizar dois modelos diferentes para escolha de um canal livre no espectro.
+Um rádio cognitivo pode utilizar dois modelos diferentes para escolha de um canal livre no espectro, seu comportamento pode ser observado na figura ~\ref{fig:funcionamentodoradiocognitivo}.
 
 A primeira é pelo sensoriamento. O Rádio Cognitivo deve possuir um hardware específico para ser capaz de analisar as diferentes frequências em utilzação no espectro. Sua implementação é complexa e aumenta o custo de produção do Rádio, por conta do hardware específico. Os métodos de sensoriamento do espectro não fazem parte do escopo desse trabalho.
 
-A segunda forma é a criação de uma base de dados com a disponibilidade do espectro de frequencia em uma dada localização. Com isso, o rádio cognitivo precisa apenas consultar essa base para saber quais canais estão livres naquele momento no seu local. No entanto, para consultar essa base, o rádio precisa estar conectado à rede previamente, limitando sua implementação.
+A segunda forma é a criação de uma base de dados com a disponibilidade do espectro de frequência em uma dada localização. Com isso, o rádio cognitivo precisa apenas consultar essa base para saber quais canais estão livres naquele momento no seu local. No entanto, para consultar essa base, o rádio precisa estar conectado à rede previamente e então verificar qual canal pode ser utilizado, limitando a sua implementação.
 
 \section{Motivação}
 
-Utilizando o modelo de base de dados, todas as informações são centralizadas e controladas pelas agências reguladoras, o que é uma grande vantagem em cima do modelo de sensoriamento, pois caso fosse utilizado, o rádio não teria a necessidade de consultar a base da agência reguladora. Outra grande vantagem é a manutenibilidade, caso alguma resolução mude, basta aplicar essa regra na base que todos os rádios cognitivos seguirão, já que dependem da resposta da base. Caso seja via sensoriamento, seria necessário uma reprogramação dos rádios, o que seria custoso e demorado.
+Utilizando o modelo de base de dados, todas as informações são centralizadas e controladas pelas agências reguladoras, o que é uma grande vantagem perante o modelo de sensoriamento, pois caso fosse utilizado, o rádio não teria a necessidade de consultar a base da agência reguladora. Outra grande vantagem é a manutenibilidade, caso alguma resolução mude, basta aplicar essa regra na base que todos os rádios cognitivos seguirão, já que dependem da resposta da base. Caso seja via sensoriamento, seria necessário uma reprogramação dos rádios, o que seria custoso e demorado.
 
 Atualmente, os Estados Unidos, Reino Unido já possuem essa base e outros países estão desenvolvendo, como o Canada.
 Também está em fase de desenvolvimento o Protocol to Access White Space database (PAWS)\abbrev{PAWS}{Protocol to Access White Space database}, protocolo para comunicação entre os dispositivos e as bases de WSs~\cite{RFC6953}, pelo Internet Engineering Task Force (IETF)\abbrev{IETF}{Internet Engineering Task Force}.
@@ -54,7 +46,7 @@ Também está em fase de desenvolvimento o Protocol to Access White Space databa
 
 \section{Objetivo}
 
-A base de dados foi implementada anteriormente e um servidor é responsável pela comunicação com dispositivos que queiram consultar a base. O objetivo desse trabalho foi dar continuidade ao desenvolvimento dessa base, adicionando tabelas e um novo modelo de propagação do sinal, que leve em consideração o relevo. Também criou-se um servidor Web para visualização do espectro em um mapa de calor, consulta de canais livres e visualização dos alcances das antenas.
+A base de dados foi implementada anteriormente e um servidor é responsável pela comunicação com dispositivos que queiram consultar a base. O objetivo desse trabalho foi dar continuidade ao desenvolvimento dessa base, adicionando tabelas para persistência dos dados no banco de dados e um novo modelo de propagação do sinal, que leve em consideração o relevo. Também criou-se um servidor Web para visualização do espectro em um mapa de calor, consulta de canais livres e visualização dos alcances das antenas.
 
 \subsection{Metodologia}
 
