@@ -8,15 +8,15 @@ foi implementado anteriormente por Marcelo Machado em seu trabalho de conclusão
 
 Para obter uma lista com os canais livres em uma dada localização, é enviado como parâmetro de entrada a localização do US e a base, através de diferentes modelos de propagação, retorna a lista de White Spaces.
 
-O espectro de frequência é extenso e utilizado para várias finalidades, como Transmissão de dados para satélites, rádio navegação e transmissão de TV. Atualmente, a base implementada possui apenas informações referentes ao espectro de transmissão de TV, que vai de 54 Mhz até 806Mhz~\cite{fccalloc} .
+O espectro de frequência é extenso e utilizado para várias finalidades, como transmissão de dados para satélites, rádio navegação e transmissão de TV. Atualmente, a base implementada possui apenas informações referentes ao espectro de transmissão de TV, que vai de 54 Mhz até 806Mhz~\cite{fccalloc} .
 
 A base possui as informações referentes às antenas de televisão que operam na região do Estado do Rio de Janeiro. Esses dados foram obtidos da ANATEL~\cite{channelstable}. Certos dados oriundos da agência reguladora estão incompletos e inconsistentes, o que acarreta erros de cálculo na base. Torna-se necessária uma maior cooperação entre a agência reguladora com a base, para aumentar a confiabilidade das respostas às requisições dos USs.
 
 \section{Cálculo dos Canais Disponíveis}
 
-O servidor consulta o banco de dados e coleta as informações das antenas presentes no Estado do Rio de Janeiro. A partir de sua altura e potência, calcula-se o alcance máximo para cada antena, dependendo do modelo de propagação do sinal. O alcance máximo é a distância máxima na qual um receptor pode estar da antena para receber o sinal transmitido por ela com uma relação sinal/ruído mínima. Os dispositivos que possuírem uma distância menor que o raio da antena receberão o sinal com qualidade suficiente. Já os dispositivos com distancia da antena maior que seu raio, estarão fora do alcance da mesma, podendo utilizar esse canal para transmissão de seus dados. Essa condição é necessária para que um US possa transmitir dados nessa frequência sem causar interferências.
+O servidor consulta o banco de dados e coleta as informações das antenas presentes no Estado do Rio de Janeiro. A partir de sua altura e potência, calcula-se o alcance máximo para cada antena, dependendo do modelo de propagação do sinal. O alcance máximo é a distância máxima na qual um receptor pode estar da antena para receber o sinal transmitido por ela com uma relação sinal/ruído mínima. Os dispositivos que possuírem uma distância menor que o raio da antena receberão o sinal com qualidade suficiente. Já os dispositivos com distância da antena maior que seu raio, estarão fora do alcance da mesma, podendo utilizar esse canal para transmissão de seus dados. Essa condição é necessária para que um US possa transmitir dados nessa frequência sem causar interferências.
 
-Assumindo um Usuário Primário P com alcance \begin{math}p\end{math} e um Usuário Secundário S com alcance \begin{math}s\end{math}. Sendo D a distância entre P e S. O US S poderá transmitir dados utilizando o canal de P somente se:
+Assumindo um Usuário Primário P com alcance \begin{math}p\end{math} e um Usuário Secundário S com alcance \begin{math}s\end{math} e sendo D a distância entre P e S, o US S poderá transmitir dados utilizando o canal de P somente se:
 
 \begin{align}
   \label{cantransmitdata} p + s > D
@@ -26,7 +26,7 @@ Os alcances \begin{math} p \end{math} e \begin{math} s \end{math} são obtidos a
 
 \begin{itemize}
 \item Free Space
-\item Two Ray Ground
+\item Two-Ray Ground
 \item Log Distance
 \end{itemize}
 
@@ -38,7 +38,7 @@ Cada modelo retorna um valor de atenuação, no qual a relação sinal/ruído se
   \label{Sinr} SINR=\frac{P}{I+N}
 \end{align}
 
-Onde \textit{P} é a potência do sinal, \textit{I} é a interferência e \textit{N} é o ruído de fundo.
+onde \textit{P} é a potência do sinal, \textit{I} é a interferência e \textit{N} é o ruído de fundo.
 
 Como é assumido que a única interferência no ambiente será o ruído de fundo, tem-se então que:
 
@@ -52,7 +52,7 @@ O ruído de fundo, em Watts, é definido como:
   \label{noise} Noise=kTB
 \end{align}
 
-Aonde \textit{k} é a constante de Boltzman, \textit{T} é a temperatura do ambiente em Kelvin e \textit{B} é a banda em hertz.
+onde \textit{k} é a constante de Boltzman, \textit{T} é a temperatura do ambiente em Kelvin e \textit{B} é a banda em hertz.
 
 Assim, pelas equações~\ref{actSinr} e~\ref{noise} tem-se que a potência mínima do receptor é:
 
@@ -131,12 +131,12 @@ De maneira análoga, o alcance de um US pode ser determinado pelas equações~\r
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.8\textwidth]{figs/tworay}
-\caption[Modelo de propagação Two Ray Ground.]
-{Modelo de propagação Two Ray Ground.}
+\caption[Modelo de propagação Two-Ray Ground.]
+{Modelo de propagação Two-Ray Ground.}
 \label{fig:tworay}
 \end{figure}
 
-O modelo Two Ray Ground leva em consideração dois caminhos: O primeiro é equivalente ao Free Space, ou seja, um caminho direto do transmissor ao receptor e o segundo é um caminho que incide no solo e é refletido para o receptor. Um exemplo é ilustrado na figura~\ref{fig:tworay}.
+O modelo Two-Ray Ground leva em consideração dois caminhos. O primeiro é equivalente ao Free Space, ou seja, um caminho direto do transmissor ao receptor e o segundo é um caminho que incide no solo e é refletido para o receptor. Um exemplo é ilustrado na Figura~\ref{fig:tworay}.
 
 A potência recebida pelo receptor quando o transmissor se encontra a uma distância \textit{d} é definida~\cite{rapapport} como: 
 
@@ -146,7 +146,7 @@ A potência recebida pelo receptor quando o transmissor se encontra a uma distâ
 
 Onde \begin{math}h_t\end{math} é a altura da antena transmissora e \begin{math}h_r\end{math} é a altura da antena do receptor em metros. Foi assumida uma altura de 2 metros para casos onde não foi possível determinar a altura do dispositivo.
 
-Assim, assumindo a equação~\ref{ganho}, temos, pelas equações~\ref{pottworay} e~\ref{minPotAnt} o alcance de uma antena no modelo Two Ray Ground:
+Assim, assumindo a equação~\ref{ganho}, temos, pelas equações~\ref{pottworay} e~\ref{minPotAnt}, o alcance de uma antena no modelo Two-Ray Ground:
 
 \begin{align}
   \label{dTwoRayAnt} d_1 = \sqrt[4]{\frac{P_th_t^{2}h_r^{2}}{10kTB}}
@@ -197,15 +197,14 @@ As seguintes constantes foram assumidas para os cálculos descritos:
 
 \section{Extensão dos modelos}
 
-Os modelos implementados não levam em conta a perda causada pelo relevo, o que pode gerar resultados menos acurados, podendo causar interferências ou subutilização de canais no espectro. Um novo modelo de propagação foi desenvolvido nesse trabalho, levando em contra outras variáveis para determinar a atenuação do sinal de um dispositivo.
+Os modelos implementados não levam em conta a perda causada pelo relevo, o que pode gerar resultados menos acurados, podendo causar interferências ou subutilização de canais no espectro. Um novo modelo de propagação foi desenvolvido nesse trabalho, levando em conta outras variáveis para determinar a atenuação do sinal de um dispositivo.
 
 \subsection{Longley-Rice}
 \label{subsec:longleyricesection}
 
 Também conhecido como Irregular Terrain Model (ITM)\abbrev{ITM}{Irregular Terrain Model}, este modelo foi proposto para frequências entre 20 MHz a 20GHz, para alturas distintas de antenas transmissoras e receptoras. Dada a frequência, altura das antenas e uma estimativa da irregularidade do terreno, o modelo retorna um valor de referência para a atenuação do sinal. Foi bastante utilizado no auxílio de instalação de redes de telecomunicações, em especial os sistemas de televisão e rádiodifusão na alocação de canais de transmissão Very High Frequency(VHF)
 \abbrev{VHF}{Very High Frequency} 
-e Ultra High Frequency(UHF)
-\abbrev{UHF}{UHF High Frequency}.
+e Ultra High Frequency(UHF)\abbrev{UHF}{UHF High Frequency}.
 
 Publicado em 1968 por Anita Longley e Phil Rice, esse modelo foi proposto para ser utilizado em um computador e foi criado de forma a abranger diversas combinações de frequências, distâncias, terrenos e climas para ambas polarizações - vertical e horizontal- de uma antena~\cite{longleyrice}.
 
@@ -220,7 +219,7 @@ Para ambos os modos, os parâmetros listados abaixo são necessários:
 \item \begin{math}k\end{math} Número de onda
 \item \begin{math}h_{g1}, h_{g2}\end{math} Altura estrutural das antenas
 \item \begin{math}\Delta h\end{math} Parâmetro de irregularidade do terreno
-\item \begin{math}N_s\end{math} Refratividade da Superfície
+\item \begin{math}N_s\end{math} Refratividade da superfície
 \item \begin{math}\gamma _e\end{math} Curvatura efetiva da terra
 \item \begin{math}Z_g\end{math} Impedância da superfície
 \item clima Expresso qualitativamente com um número para denotar um tipo de clima discreto
@@ -293,7 +292,7 @@ onde \begin{math}\epsilon_r'\end{math} é a Permissividade relativa complexa, de
 \begin{align}
 \label{z_0} Z_0 = 376.62 \textrm{ ohm.}
 \end{align}
-A condutividade do solo $\sigma$ é expressa em siemens por metro. Seus possíveis valores podem são apresentados na tabela ~\ref{table:sigmainterval}
+A condutividade do solo $\sigma$ é expressa em siemens por metro. Seus possíveis valores são apresentados na tabela ~\ref{table:sigmainterval}
 
 \begin{table}[h]
 \caption[Valores para a permissividade relativa e condutividade do solo.]
@@ -320,7 +319,7 @@ A curvatura efetiva da terra $\gamma_e$ pode ser obtida através da fórmula:
 \end{align}
 
 
-Onde $\gamma_a$ é a curvatura real da terra e $K$ é o fator de raio efetivo da Terra. O valor normalmente é obtido através de sua formúla empírica:
+Onde $\gamma_a$ é a curvatura real da terra e $K$ é o fator de raio efetivo da Terra. O valor normalmente é obtido através de sua fórmula empírica:
 \begin{align}
 \label{ge2} \gamma_e = \gamma_a(1-0.04665e^{N_s/N_1})
 \end{align}
@@ -330,7 +329,7 @@ onde
 \begin{align}
 \label{n_1} N_1 = 179.3 \text{ N-unidades, e } \gamma_a = 157 . 10^-9 \text{ m} ^-1 = 157 \text{ N-unidades/km.}
 \end{align}
-A refratividade da superfície \begin{math}N_s\end{math} é obtida a partir da análise das condições atmosféricas, como a temperatura, pressão e umidade relativa. Esse valor determina quantidade de sinal que é refratado pela atmosfera.
+A refratividade da superfície \begin{math}N_s\end{math} é obtida a partir da análise das condições atmosféricas, como a temperatura, pressão e umidade relativa. Esse valor determina a quantidade de sinal que é refratado pela atmosfera.
 Para simplificar a sua representação, a refratividade da superfície  é definida em termos de \begin{math}N_0\end{math}, a refratividade da superfície reduzida ao nível do mar.
 
 \begin{align}
@@ -371,7 +370,7 @@ Marítimo Sub-tropical       & 370                                    \\
 
 \subsubsection{Parâmetros adicionais para o modo ponto-a-ponto}
 
-Cada modo depende de diferentes parâmetros de entrada. No modo ponto-a-ponto, informações detalhadas do terreno para o caminho entre o transmissor e receptor estão disponíveis, as variáveis adicionais de entrada utilizados pelo algoritmo nesse modo são:
+Cada modo depende de diferentes parâmetros de entrada. No modo ponto-a-ponto, informações detalhadas do terreno para o caminho entre o transmissor e receptor estão disponíveis. As variáveis adicionais de entrada utilizadas pelo algoritmo nesse modo são:
 
 \begin{itemize}
 \item \begin{math}h_{e1}, h_{e1}\end{math} Alturas efetivas das antenas
@@ -400,14 +399,14 @@ O ângulo $\theta$ é obtido da seguinte forma:
 onde
 
 \begin{align}
-\label{dl} d_L = d_{L1} + d_L{L2}
+\label{dl} d_L = d_{L1} + d_{L2}
 \end{align}
 
 \subsubsection{Parâmetros adicionais para o modo área}
 
 O modo área realiza a predição com menos informações sobre o terreno. Portanto, apenas um parâmetro é levado em consideração: o critério de localização do receptor, que pode assumir apenas três valores: Aleatório, com cautela ou com muita cautela.
 
-Os parâmetros \begin{math}h_{ei}, \, d_{Li}, \, \theta_{ei}, \, j=1,2\end{math} não são parâmetos de entrada nesse modo, porque nem sempre as informações específicas do terreno estão disponíveis. No modo área, eles são calculados empiricamente e o critério de localização é utilizado para determinar a altura efetiva da seguinte forma:
+Os parâmetros \begin{math}h_{ei}, \, d_{Li}, \, \theta_{ei}, \, j=1,2\end{math} não são parâmetros de entrada nesse modo, porque nem sempre as informações específicas do terreno estão disponíveis. No modo área, eles são calculados empiricamente e o critério de localização é utilizado para determinar a altura efetiva da seguinte forma:
 
 \begin{align}
 \label{h_ei} h_{ei} = h_{gi} \,\,\,\,\, \text{Se o dipositivo está localizado aleatoriamente}
@@ -451,7 +450,7 @@ Por fim, os ângulos efetivos $\theta_{ei}, i=1,2$ são calculados através da f
 
 \subsubsection{Retorno do algoritmo}
 
-Os parâmetros citados anteriormente são utilizados para computar a perda da transmissão. O resultado é um valor de atenuação calculado através do somatório de duas atenuações: A primeira é utilizando o Free Space citado anteriormente enquanto a segunda é uma atenuação de referência, que pode ser calculada de diferentes maneiras, dependendo da distância entre os dispositivos.
+Os parâmetros citados anteriormente são utilizados para computar a perda da transmissão. O resultado é um valor de atenuação calculado através do somatório de duas atenuações: A primeira é calculada utilizando o Free Space citado anteriormente enquanto a segunda é uma atenuação de referência, que pode ser calculada de diferentes maneiras, dependendo da distância entre os dispositivos.
 
 Sejam $A_{lr}$, $A_{fs}$, $A_{ref}$ as atenuações do Longley-Rice, Free Space e de referência, respectivamente, o valor da atenuação retornada pelo modelo é:
 
@@ -469,9 +468,9 @@ Com a frequência $f$ em MHz e a distância $d$ em metros.
 
 \subsubsection{Atenuação de Referência $A_{ref}$}
 
-A atenuação de referência é calculada usando metódos baseados em diferentes modelos de propagação, para três intervalos de distâncias distintas. Na região onde a superfície da terra não interrompe a propagação do sinal, chamada de linha de visada (Line of Sight), o modelo utilizado é o Two-Ray, somado ao Free Space mencionado anteriormente.
+A atenuação de referência é calculada usando métodos baseados em diferentes modelos de propagação, para três intervalos de distâncias distintas. Na região onde a superfície da terra não interrompe a propagação do sinal, chamada de linha de visada (Line of Sight), o modelo utilizado é o Two-Ray, somado ao Free Space mencionado anteriormente.
 
-Na região entre $d_{L1}$ e $d_{L2}$, o modelo que prevalece é o de difração\cite{rufford}. Nele, são utilizadas dois modelos para calcular a atenuação: A atenuação de goma dupla de faca e atenuação desenvolvida por Vogler para uma região de difração distante, assumindo a terra perfeitamente esférica~\cite{vogler}.
+Na região entre $d_{L1}$ e $d_{L2}$, o modelo que prevalece é o de difração\cite{rufford}. Nele, são utilizadas dois modelos para calcular a atenuação: A atenuação por goma de faca e atenuação desenvolvida por Vogler para uma região de difração distante, assumindo a terra perfeitamente esférica~\cite{vogler}.
 
 Quando a distância entre os dispositivos ou $\theta$ é muito grande, calcula-se a atenuação na região de dispersão.
 
@@ -481,7 +480,7 @@ O sistema foi desenvolvido utilizando a linguagem de programação orientada a o
 \abbrev{SGBD}{Sistema de Gerenciamento de Banco de Dados} 
 para armazenamento dos dados. O protocolo utilizado para o desenvolvimento da  Application Programming Interface (API)
 \abbrev{API}{Application Programming Interface} 
-foi o REST, para isso, foi utilizada uma biblioteca Java chamada Restlet~\cite{restlet}. As respostas do sistema são no formato XML ou no formato JSON. O desenvolvimento da base foi realizado no ambiente Eclipse.
+foi o REST, utilizando uma biblioteca Java chamada Restlet~\cite{restlet}. As respostas do sistema são no formato XML ou no formato JSON. O desenvolvimento da base foi realizado no ambiente Eclipse.
 
 A aplicação Web utilizou  HyperText Markup Language(HTML)
 \abbrev{HTML}{HyperText Markup Language}
@@ -516,11 +515,11 @@ Desse arquivo foram extraídas informações das antenas cujo campo $Estado$ era
 
 Para identificar qual o canal que uma antena opera, foram utilizados os campos $Canal$ e $Complemento\, do\, Canal$.
 
-Os campos $Latitude$ e $Longitude$ informam a posição da antena no planeta, no formato grau-minuto-segundo, com uma letra indicando a direção da bússola. Essas informações foram convertidas para o formato decimal, para o caso do Estado do Rio de Janeiro, assumiram valores negativos pois o estado está localizado à Oeste e Sul do globo.
+Os campos $Latitude$ e $Longitude$ informam a posição da antena no planeta, no formato grau-minuto-segundo, com uma letra indicando a direção da bússola. Essas informações foram convertidas para o formato decimal. Para o caso do Estado do Rio de Janeiro, assumiram valores negativos pois o estado está localizado à Oeste e Sul do globo.
 
 O campo \textit{Potência} está em kW e é utilizado como potência da antena.
 
-No arquivo, assume-se que as antenas são multidirecionais, porém, algumas antenas irradiam a uma dada potência apenas em um cone direcionado. Chamadas Antenas Direcionais, essas antenas são descritas no arquivo com os campos \textit{Altura}, \textit{Direcionamento} (em Azimuth) e \textit{Potência}, dentro de \textit{Informações de Antenas Direcionais}.
+No arquivo, assume-se que as antenas são multidirecionais porém, algumas antenas irradiam a uma dada potência apenas em um cone direcionado. Chamadas Antenas Direcionais, essas antenas são descritas no arquivo com os campos \textit{Altura}, \textit{Direcionamento} (em Azimuth) e \textit{Potência}, dentro de \textit{Informações de Antenas Direcionais}.
 
 \subsubsection{Canais de transmissão}
 
@@ -625,7 +624,7 @@ As informações referentes aos canais de transmissão utilizados pelas antenas 
 
 \subsection{Confiabilidade dos Dados}
 
-Para o funcionamento apropriado da base, os dados oriundos da ANATEL devem ser consistentes. No entando, após análise dos mesmo, nota-se que o arquivo possui diversos erros. Algumas antenas estão localizadas em São Paulo, porém o campo \textit{Estado} possui valor "RJ". Além disso, no campo \textit{Elevação}, utilizado para definir a altura de determinada antena, possuía valores muito grandes, acima de 1.5km e valores abaixo de zero, o que é impossível fisicamente.
+Para o funcionamento apropriado da base, os dados oriundos da ANATEL devem ser consistentes. No entanto, após análise dos mesmos, nota-se que o arquivo possui certas inconsistências. Algumas antenas estão localizadas em São Paulo, porém o campo \textit{Estado} possui valor "RJ". Além disso, no campo \textit{Elevação}, utilizado para definir a altura de determinada antena, possuía valores muito grandes, acima de 1.5km e valores abaixo de zero, o que é impossível fisicamente.
 Outro problema é a pouca precisão nos valores de \textit{Latitude} e \textit{Longitude} das antenas.
 
 Essa ausência de confiabilidade acaba prejudicando os modelos de propagação do sinal da antena, portanto é necessária uma cooperação com a ANATEL para melhorar a qualidade desses dados.
@@ -659,11 +658,11 @@ Na tabela Channels, temos informações sobre o número do canal e as frequênci
 
 As tabelas \textit{Antenas} e \textit{Ws\_Devices} apontam para um determinado canal, através da coluna \textit{channel\_id} e dentro de ambas as tabelas temos a sua localização.
 
-Nas \textit{Antenas}, existem informações da sua potência e elevação. Foi criada também uma tabela para antenas direcionais a \textit{Directed\_Antenas}.
+Nas \textit{Antenas}, existem informações da sua potência e elevação. Foi criada também uma tabela para antenas direcionadas a \textit{Directed\_Antenas}.
 
 Na tabela de dispositivos secundários, \textit{Ws\_Devices}, existe uma coluna que referencia o tipo de dispositivo \textit{device\_class\_id}. Os tipos de dispositivos são armazenados em uma tabela separada, denominada \textit{Device\_Class}.
 
-O design do banco de dados pode ser observado na figura ~\ref{fig:databasebefore}.
+O \textit{design} do banco de dados pode ser observado na figura ~\ref{fig:databasebefore}.
 
 
 \begin{figure}[databasebefore]
@@ -681,11 +680,11 @@ Como citado na seção anterior, o servidor realiza a consulta ao banco de dados
 
 \subsection{REST}
 \textit{Representational State Transfer (REST)} é um padrão de arquitetura de software. Consiste em diretrizes para criação de \textit{Web Services} escaláveis e é amplamente utilizado na Web, por ser uma alternativa mais simples ao \textit{Simple Object Access Protocol (SOAP)} e \textit{Web Services Description Language (WSDL)},
- criado em 2000, na tese doutorado de Roy T. Fielding ~\cite{restcreator}.
+ criado em 2000, na tese de doutorado de Roy T. Fielding ~\cite{restcreator}.
  
 Além de simplificar as interfaces, esse padrão é performático e escalável.
 
-Sistemas REST tipicamente utilizam o protocolo HTTP com os mesmos métodos (GET,POST,PUT E DELETE) utilizado pelos browsers para carregar páginas e enviar dados a servidores.
+Sistemas REST tipicamente utilizam o protocolo HTTP com os mesmos métodos (GET,POST,PUT E DELETE) utilizados pelos browsers para carregar páginas e enviar dados a servidores.
 
 Ele assume que a base consiste de recursos, que podem ser acessados via URL. Cada recurso tem seu próprio identificador, denominado \textit{Unified Resource Identifier}(URI).
 
@@ -702,7 +701,7 @@ Esse recursos, por sua vez, são acessados por requisições HTTP, divididos em 
 
 O POST e o PUT são bastante semelhantes, mas segundo a especificação do HTTP ~\cite{RFC2616}, o método POST deve ser utilizado na criação de um novo recurso, enquanto o PUT somente para a alteração de recursos criados anteriormente. No entanto, o POST também é utilizado para alteração de recursos já existentes na base e foi utilizado dessa forma também no desenvolvimento do Web Service deste trabalho.
 
-Não existe uma forma padrão para a resposta do servidor ao cliente. Entretanto, isso muitas vezes é feito via JSON ou XML, já que estes formatos apresentam uma forma mais estruturada. No servidor desenvolvido, o formato de resposta escolhido foi o XML e posteriormente algumas respostas foram modificadas para JSON, visando uma melhor comunicação com a interface Web.
+Não existe uma forma padrão para a resposta do servidor ao cliente. Entretanto, isso muitas vezes é feito via formato JSON ou XML, já que estes formatos apresentam uma forma mais estruturada. No servidor desenvolvido, o formato de resposta escolhido foi o XML e posteriormente algumas respostas foram modificadas para JSON, visando uma melhor comunicação com a interface Web.
 
 \begin{figure}[clientserver]
 \centering
@@ -724,7 +723,7 @@ Um possível fluxo de uma requisição pode ser da seguinte maneira:
 
 
 \subsection{Classes}
-A linguagem utilizada para a implemetanção do servidor foi Java, uma linguagem orientada a objetos onde todos os arquivos são classes. O padrão de desenvolvimento adotado por Machado~\cite{tccmarcelo} foi o de Fábricas (\textit{Factories}).
+A linguagem utilizada para a implementação do servidor foi Java, uma linguagem orientada a objetos onde todos os arquivos são classes. O padrão de desenvolvimento adotado por Machado~\cite{tccmarcelo} foi o de Fábricas (\textit{Factories}).
 
 Esse padrão de desenvolvimento consiste em definir interfaces nas quais os objetos devem estender. Existem também objetos Fábrica, que são responsáveis pela instanciação dos objetos que implementam as interfaces citadas anteriormente. Dessa forma, nenhum objeto é referenciado diretamente.
 
@@ -734,7 +733,7 @@ As classes \textit{Factories} implementadas são representadas na figura ~\ref{f
 \centering
 \includegraphics[width=1.0\textwidth]{figs/factories}
 \caption[\textit{Factories}.]
-{Diagrama de classe das - \textit{Factories}~\cite{tccmarcelo} }
+{Diagrama de classe das \textit{Factories}~\cite{tccmarcelo} }
 \label{fig:facto}
 \end{figure} 
 
@@ -743,7 +742,7 @@ Cada fábrica é responsável por instanciar um componente que será utilizado n
 
 A fábrica \textit{PropagationModelFactory} possui um método chamado \textit{getModelInstance()}, que recebe como parâmetro de entrada um inteiro referente ao modelo de propagação desejado. Os modelos estão mapeados no servidor conforme a tabela ~\ref{table:modelnumbers}.
 
-O último modelo não foi implementado na versão inicial do servidor, sendo implementada nesse trabalho. O modelo é explicado na seção ~\ref{subsec:longleyricesection}.
+O último modelo não foi implementado na versão inicial do servidor, sendo implementado nesse trabalho. O modelo é explicado na seção ~\ref{subsec:longleyricesection}.
 
 \begin{table}[modelnumbers]
 \centering
@@ -754,7 +753,7 @@ O último modelo não foi implementado na versão inicial do servidor, sendo imp
 Modelo de Propagação          & Valor            \\ \hline
 Free Spaces                   & 0                \\
 Log Distance                  & 1                \\
-Two Ray Ground                & 2                \\
+Two-Ray Ground                & 2                \\
 Longley-Rice                  & 3                        
 \end{tabular}
 \end{table}
@@ -763,7 +762,7 @@ A \textit{DaoFactory} é a fábrica responsável pela comunicação com o banco 
 
 A \textit{APIFactory} é responsável pelo mapeamento das requisições oriundas do Cliente em métodos do servidor e retorna a resposta no formato JSON ou XML.
 
-A \textit{DistanceCalculatorFactory} é responsável pelo cálculo das distâncias entre os pontos no globo, essa classe é importante para determinar se há interferência ou não, conforme demonstrado na equação ~\ref{cantransmitdata}.
+A \textit{DistanceCalculatorFactory} é responsável pelo cálculo das distâncias entre os pontos no globo. Essa classe é importante para determinar se há interferência ou não, conforme demonstrado na equação ~\ref{cantransmitdata}.
 
 As Fábricas citadas acima foram modificadas para implementação do novo algoritmo e suas alterações são especificadas no próximo capítulo.
 

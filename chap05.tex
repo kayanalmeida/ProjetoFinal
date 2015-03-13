@@ -2,7 +2,7 @@
 
 \section{Conclusão}
 
-O sistema desenvolvido consegue atingir o objetivo proposto. A interface Web é intuitiva e dinâmica, além de ser de fácil utilização. Além disso, o novo modelo implementado leva em conta as informações do relevo e clima do estado do Rio de Janeiro, sendo um modelo mais preciso do que os implementados anteriormente. O banco de dados foi otimizado e é capaz de armazenar os cálculos realizados anteriormente, poupando processamento do servidor e reduzindo o tempo de resposta do mesmo. Por fim, os mapas gerados auxiliam no planejamento de instalações de dispositivos secundários.
+O sistema desenvolvido consegue atingir o objetivo proposto. A interface Web é intuitiva e dinâmica, além de ser de fácil utilização. Além disso, o novo modelo implementado leva em conta as informações do relevo e clima do Estado do Rio de Janeiro, sendo um modelo mais preciso do que os implementados anteriormente. O banco de dados foi otimizado e é capaz de armazenar os cálculos realizados anteriormente, poupando processamento do servidor e reduzindo o tempo de resposta do mesmo. Por fim, os mapas gerados auxiliam no planejamento de instalações de dispositivos secundários.
 
 \section{Trabalhos Futuros}
 
@@ -12,31 +12,31 @@ A seguir serão enumeradas, em ordem de importância, maneiras de dar continuida
 
 \subsection{Interação com a ANATEL}
 
-A ANATEL é a agência brasileira responsável por conceder a utilização dos canais de frequência do território brasileiro. Para a BSDWS funcionar corretamente, é preciso interagir com essa agência e obter regras de utilização dos canais. Alguns podem ser reservados para outras finalidades em determinadas regiões e atualmente a base não implementa essas regras de uso.
+A ANATEL é a agência brasileira responsável por conceder a utilização dos canais de frequência do território brasileiro. Para a BDWS funcionar corretamente, é preciso interagir com essa agência e obter regras de utilização dos canais. Alguns podem ser reservados para outras finalidades em determinadas regiões e atualmente a base não implementa essas regras de uso.
 
-Além disso, os dados disponíveis não são muito confiáveis. A ANATEL disponibiliza um arquivo com as informações das antenas, nesse arquivo, verificou-se que certas antenas possuíam altura negativa, o que é fisicamente impossível. Além disso, notou-se antenas que segundo o arquivo pertenciam ao estado do Rio de Janeiro, quando na verdade pertenciam à São Paulo, ou mesmo se encontravam no meio do oceano. Também foram encontradas antenas com potências negativas, ou com valor nulo, o que torna o algoritmo inútil, pois são valores absurdos.
+Além disso, os dados disponíveis não são muito confiáveis. A ANATEL disponibiliza um arquivo com as informações das antenas, onde verificou-se que certas antenas possuíam altura negativa, o que é fisicamente impossível. Além disso, notou-se antenas que segundo o arquivo pertenciam ao Estado do Rio de Janeiro, quando na verdade pertenciam à São Paulo, ou mesmo se encontravam no meio do oceano. Também foram encontradas antenas com potências negativas, ou com valor nulo, o que torna o algoritmo inútil, pois são valores absurdos.
 
-Para resolver esses problemas, a base deveria ser capaz de se comunicar diretamente com um serviço Web da ANATEL, que verificasse erros, enviasse atualizações das antenas e outras informações pertinentes. Com isso, a base estaria sincronizada com os dados do órgão, e o mesmo teria mais informações do espectro do território brasileiro, no final, ambos sairiam ganhando
+Para resolver esses problemas, a base deveria ser capaz de se comunicar diretamente com um serviço Web da ANATEL, que verificasse erros, enviasse atualizações das antenas e outras informações pertinentes. Com isso, a base estaria sincronizada com os dados do órgão, e o mesmo teria mais informações do espectro do território brasileiro e no final, ambos sairiam ganhando
 
 Portanto, sugere-se que:
 
 \begin{itemize}
-\item Seja desenvolvido um Web Service para disponibilizar todas as informações disponíveis sobre os dispositivos primários. Atualmente a carga deve ser feita manualmente, pois é disponibilizado apenas um arquivo, o que torna o processo lento, já que é feito manualmente.
-\item Seja realizado uma revisão dos dados presentes no arquivo. Foram detectados diversos erros no arquivo e isso impacta diretamente na eficiência de todos os modelos de propagação implementados. O Web Service desenvolvido poderia notificar a agência reguladora sobre os erros encontrados no arquivo, visando facilitar a correção dos mesmos pela agência.
-\item Seja informado à base as regras de utilização dos canais, além de um canal para alterações emergenciais na base pela ANATEL.
-\item A base seja atualizada com todos os canais livres do Brasil. Para isso, é necessário atualizar as tabelas com as informações das antenas e incluir as de outros estados. Feito isso, basta modificar os parâmetros de latitude e longitude presentes no arquivo \textit{wsdb.js}. Atualmente esse parâmetros representam um retângulo englobando o estado do Rio de Janeiro, logo, modificando-os para conter o Estado brasileiro, o servidor realizará o cálculo para todo o país.
+\item Seja desenvolvido um Web Service para disponibilizar todas as informações disponíveis sobre os dispositivos primários pela Anatel. Atualmente a carga deve ser feita manualmente, pois é disponibilizado apenas um arquivo, o que torna o processo lento, já que é feito manualmente.
+\item Seja realizado uma revisão dos dados presentes no arquivo da agência reguladora. Foram detectados diversos erros no arquivo e isso impacta diretamente na eficiência de todos os modelos de propagação implementados. O Web Service desenvolvido poderia notificar a agência reguladora sobre os erros identificados, visando facilitar a correção dos mesmos pela agência.
+\item Seja informado à BDWS as regras de utilização dos canais, além de um canal para alterações emergenciais na base pela ANATEL.
+\item A base seja atualizada com todos os canais livres do Brasil. Para isso, é necessário atualizar as tabelas com as informações das antenas e incluir as de outros estados. Feito isso, basta modificar os parâmetros de latitude e longitude presentes no arquivo \textit{wsdb.js}. Atualmente esse parâmetros representam um retângulo englobando o Estado do Rio de Janeiro, logo, modificando-os para conter todo o território brasileiro, o servidor realizará o cálculo para todo o país.
 \end{itemize}
 
 
 \subsection{Cálculo de Disponibilidade}
 
-O novo modelo de propagação implementado, leva em conta as informações do relevo, portanto é mais preciso que os modelos anteriores. Porém, ainda pode ser melhorado, com ajustes para espaços urbanos e espaços rurais, onde a quantidade de obstáculos é consideravelmente menor.
+O novo modelo de propagação implementado leva em conta as informações do relevo, portanto é mais preciso que os modelos anteriores. Porém, ainda pode ser melhorado, com ajustes específicos para espaços urbanos e espaços rurais, onde a quantidade de obstáculos é consideravelmente menor.
 
-Outra importante observação é que os modelos dependem diretamente da confiabilidade dos dados, isso deve ser verificado periodicamente.
+Outra importante observação é que os modelos dependem diretamente da confiabilidade dos dados, devendo ser periodicamente verificado.
 
 \subsubsection{Verificação de resultados}
 
-Os valores encontrados pelos modelos devem ser validados com os dados reais. Para isso, seria necessário um trabalho de medição dos canais disponíveis no território do estado do Rio de Janeiro. Certos parâmetros do Longley-Rice podem ser modificados para refletirem mais precisamente a realidade, baseado nessas medições de canais disponíveis.
+Os valores encontrados pelos modelos devem ser validados com os dados reais. Para isso, seria necessário um trabalho de medição dos canais disponíveis no território do Estado do Rio de Janeiro. Certos parâmetros do Longley-Rice podem ser modificados para refletirem mais precisamente a realidade, baseados nessas medições de canais disponíveis.
 
 Além disso, também é necessário medir a eficácia dos dados calculados pelos modelos.
 

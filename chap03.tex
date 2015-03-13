@@ -6,8 +6,8 @@ As extensões foram realizadas em diferentes componentes da base. Novas tabelas 
 
 \section{\textit{Frontend} }
 
-O termo \textit{frontend} se refere à camada de apresentação dos dados e interação com o usuário final. No trabalho atual, visando facilitar a interação do usuário com o servidor e exibir as informações presentes na resposta das requisições em um formato mais apresentável, foi implementada uma página Web responsiva, na qual o usuário é capaz, através de um mapa, de consultar a base e obter a quantidade de canais livres. Também é apresentado um mapa de calor representando a distribuição de canais livres em uma porção região sudeste do Brasil.
-Para o desenvolvimento da página Web, foi necessário o uso de um conjuno de tecnologias, apresentadas a seguir.
+O termo \textit{frontend} se refere à camada de apresentação dos dados e interação com o usuário final. No trabalho atual, visando facilitar a interação do usuário com o servidor e exibir as informações presentes na resposta das requisições em um formato mais apresentável, foi implementada uma página Web responsiva, na qual o usuário é capaz, através de um mapa, consultar a base e obter a quantidade de canais livres. Também é apresentado um mapa de calor representando a distribuição de canais livres em uma porção da região sudeste do Brasil.
+Para o desenvolvimento da página Web, foi necessário o uso de um conjunto de tecnologias, apresentadas a seguir.
 
 \
 \subsection{HTML}
@@ -18,11 +18,11 @@ Foi criada pelo físico britânico Tim Berners-Lee, também criador do HTTP,
 na década de 90. Inicialmente, Tim tinha a intenção de resolver um problema no laboratório onde trabalhava, o European Organization for Nuclear Research, também chamado de CERN. Diversos artigos científicos citavam outros, que por sua vez citavam outros artigos relacionados. Essa distribuição de conhecimento dificultava o acesso rápido e prático às informações, pois era necessário saber em qual máquina estava armazenado fisicamente determinado artigo para acessá-lo. Além disso, o compartilhamento de artigos deveria ser feito fisicamente, por meio de CDs ou HDs.
 
 Com isso, Tim buscou criar documentos estruturados, baseados em \textit{
-tags}, que estariam interconectados. Com isso, bastaria um click para acessar um documento relacionado, formando uma rede de documentos. Surge então, o primeiro protótipo da Web.
+tags}, que estariam interconectados. Portanto, bastaria um click para acessar um documento relacionado, formando uma rede de documentos. Surge então, o primeiro protótipo da Web.
 
-Atualmente, o HTML é mantido pela World Wide Web Consortium (W3C) \abbrev{W3C}{World Wide Web Consortion}. Após um longo período sem a publicação de novas versões, sua última versão, visando acompanhar o desenvolvimento da Web nas últimas duas décadas, foi lançado em 2008, o HTML5~\cite{htmlw3cs}.  
+Atualmente, o HTML é mantido pela World Wide Web Consortium (W3C) \abbrev{W3C}{World Wide Web Consortion}. Após um longo período sem a publicação de novas versões, sua última versão, visando acompanhar o desenvolvimento da Web nas últimas duas décadas, foi lançada em 2008, o HTML5~\cite{htmlw3cs}.  
 
-Um documento HTML é estruturado por \textit{tags}, de diferentes tipos, cada uma representando o tipo de informação contida entre elas, como: texto puro, imagem e arquivos, entre outros formatos possíveis.
+Um documento HTML é estruturado por \textit{tags} de diferentes tipos, cada uma representando o tipo de informação contida entre elas, como: texto puro, imagem e arquivos, entre outros formatos possíveis.
 
 
 \subsection{JavaScript}
@@ -50,9 +50,9 @@ Para acessar a página, basta acessar a URL abaixo. Os arquivos com a implementa
 
 Ao carregar a página, um mapa é apresentado à direita, e quatro opções à esquerda. Essas opções consistem no modelo a ser exibido. Dentro do mapa, há um marcador que pode ser movido e em seguida uma consulta é enviada ao servidor, passando como parâmetro a localização do marcador e o modelo selecionado. Como resposta, uma lista é apresentada com os canais livres e sua frequência naquela localização.
 
-Para obter o mapa de calor representando o espectro no estado do Rio de Janeiro, foi necessário modificar o servidor. Uma nova URL foi adicionada para realizar o cálculo de canais livres em uma dada região.
+Para obter o mapa de calor representando o espectro no Estado do Rio de Janeiro, foi necessário modificar o servidor. Uma nova URL foi adicionada para realizar o cálculo de canais livres em uma dada região.
 
-Um exemplo de como obter a quantidade de canais livres em um região é ilustrado abaixo. São passados como parâmetros dois pontos, o servidor assume que esses pontos definem a diagonal de um paralelogramo, itera sobre os pontos contidos nesse polígono e retorna um grupo de pontos para o cliente.
+Um exemplo de como obter a quantidade de canais livres em uma região é ilustrado abaixo. São passados como parâmetros dois pontos, o servidor assume que esses pontos definem a diagonal de um paralelogramo, itera sobre os pontos contidos nesse polígono e retorna um grupo de pontos para o cliente.
 
 
 \begin{lstlisting}			
@@ -62,13 +62,13 @@ http://localhost:8182/SAM/model/1/available/region?lat=-22&lng=-44
 
 \end{lstlisting}
 
-Essa resposta é demorada, pois uma grande quantidade de pontos é processada. Inicialmente, o servidor não persistia nenhum dos cálculos realizados anteriormente, portanto, para cada região especificada, seria necessário recalcular a cada nova consulta. Esse cálculo demorava cerca de duas horas, retornando aproximadamente 40 mil pontos para o estado do Rio de Janeiro.
+Essa resposta é demorada, pois uma grande quantidade de pontos é processada. Inicialmente, o servidor não persistia nenhum dos cálculos realizados anteriormente, portanto, para cada região especificada, era necessário recalcular a cada nova consulta. Esse cálculo demorava cerca de duas horas, retornando aproximadamente 40 mil pontos para o Estado do Rio de Janeiro.
 
 Visando melhorar a experiência do usuário e poupar processamento no servidor, foi criada uma nova tabela, com os pontos calculados anteriormente. A tabela \textit{available\_channels} possui três colunas: \textit{Latitude}, \textit{Longitude} e \textit{Available\_Channels}. Com isso, o servidor apenas acessa o banco e retorna para o usuário em menos de 1 segundo, os pontos da região especificada pela url, se a mesma já tiver sido processada anteriormente.
 
 \subsubsection{API de mapas}
 
-Inicialmente, utilizou-se a API de mapas da Google, o Google Maps~\cite{googlemaps}. Os pontos foram passados no formato JSON para a página e um \textit{layer} do tipo \textit{heatmap} era adicionado com esses pontos. A visualização não ficou agradável, como mostra as figura \ref{fig:gmaps}.
+Inicialmente, utilizou-se a API de mapas da Google, o Google Maps~\cite{googlemaps}. Os pontos foram passados no formato JSON para a página e um \textit{layer} do tipo \textit{heatmap} foi adicionado com esses pontos. A visualização não ficou agradável, como mostra as figura \ref{fig:gmaps}.
 
 \begin{figure}[htb]
 \centering
@@ -105,7 +105,7 @@ No trabalho realizado anteriormente, o servidor só era acessado via URL e suas 
 Para a implementação do Longley-Rice, foi necessário realizar alterações no servidor previamente desenvolvido. 
 
 Foi criada uma nova classe, que herda de \textit{PropagationModel}, assim como os outros modelos implementados anteriormente~\cite{tccmarcelo}. A nova classe \textit{LongleyRice} implementa os métodos \textit{
-interferes()} e \textit{maxDistance()}. O método \textit{maxDistance()} determina o alcance máximo do dispositivo, enquanto o método \textit{interferes()} determina se a soma dos raios dos alcances dos dispositivos primário e secundários supera a distância física entre eles.
+interferes()} e \textit{maxDistance()}. O método \textit{maxDistance()} determina o alcance máximo do dispositivo, enquanto o método \textit{interferes()} determina se a soma dos raios dos alcances dos dispositivos primário e secundário supera a distância física entre eles.
 
 \begin{lstlisting}
 

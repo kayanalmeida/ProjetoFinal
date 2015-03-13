@@ -1,6 +1,6 @@
 \chapter{Resultados obtidos}
 
-O objetivo desse trabalho é tornar os dados apresentáveis e mais precisos do que implementados anteriormente, portanto, nesse capítulo é apresentado os resultados obtidos com as novas funcionalidades do servidor, inclusive com o modelo de propagação que leva em consideração o relevo.
+O objetivo desse trabalho é tornar os dados apresentáveis e mais precisos do que implementados anteriormente, portanto, neste capítulo são apresentados os resultados obtidos com as novas funcionalidades do servidor, inclusive com o modelo de propagação que leva em consideração o relevo.
 
 \section{Página Web}
 
@@ -78,7 +78,7 @@ Como podemos observar, com o Log Distance o mapa fica mais compreensível. Nesse
 
 \subsection{Modelo Two-Ray Ground}
 
-A figura~\ref{fig:tworayout} representa o mapa de calor gerado, representando a disponibilidade de canais utilizando o modelo Free Space. A figura~\ref{fig:tworayin} representa o mapa de calor aumentando o seu zoom.
+A figura~\ref{fig:tworayout} representa o mapa de calor gerado, representando a disponibilidade de canais utilizando o modelo Two-Ray Ground. A figura~\ref{fig:tworayin} representa o mapa de calor aumentando o seu zoom.
 
 \begin{figure}[htb]
 \centering
@@ -98,11 +98,11 @@ A figura~\ref{fig:tworayout} representa o mapa de calor gerado, representando a 
 
 \FloatBarrier
 
-Esse modelo acusou uma média de 38.16 canais disponíveis por localização. Sendo 67 a quantidade máxima de canais disponíveis em uma localização e 10 a mínima.
+Esse modelo acusou uma média de 38.16 canais disponíveis por localização, sendo 67 a quantidade máxima de canais disponíveis em uma localização e 10 a mínima.
 
 \subsection{Modelo Longley-Rice}
 
-A figura~\ref{fig:longleyriceout} representa o mapa de calor gerado, representando a disponibilidade de canais utilizando o modelo Free Space. A figura~\ref{fig:longleyricein} representa o mapa de calor aumentando o seu zoom.
+A figura~\ref{fig:longleyriceout} representa o mapa de calor gerado, representando a disponibilidade de canais utilizando o modelo Longley-Rice. A figura~\ref{fig:longleyricein} representa o mapa de calor aumentando o seu zoom.
 
 \begin{figure}[htb]
 \centering
@@ -122,7 +122,7 @@ A figura~\ref{fig:longleyriceout} representa o mapa de calor gerado, representan
 
 \FloatBarrier
 
-Esse modelo acusou uma média de 47.3 canais disponíveis por localização. Sendo 59 a quantidade máxima de canais disponíveis em uma localização e 16 a mínima.
+Esse modelo acusou uma média de 47.3 canais disponíveis por localização, sendo 59 a quantidade máxima de canais disponíveis em uma localização e 16 a mínima.
 
 \section{Resultado da análise}
 
@@ -148,11 +148,11 @@ O modelo Two-Ray também é menos sensível que o Free Space, porém é mais con
 
 \subsubsection{Longley-Rice}
 
-O modelo Longley-Rice por sua vez, é o modelo menos conservador de todos. Por levar em conta as informações do terreno, a atenuação é consideravelmente maior. Nota-se o mesmo padrão dos modelos Two-Ray e Log Distance para os espaços urbanos, porém o alcance das antenas é consideravelmente menor, por conta do relevo bastante acidentado do estado do Rio de Janeiro.
+O modelo Longley-Rice, por sua vez, é o modelo menos conservador de todos. Por levar em conta as informações do terreno, a atenuação é consideravelmente maior. Nota-se o mesmo padrão dos modelos Two-Ray e Log Distance para os espaços urbanos, porém o alcance das antenas é consideravelmente menor, por conta do relevo bastante acidentado do Estado do Rio de Janeiro.
 
 \subsection{Conclusão}
 
-Dentre os modelos apresentados, o único que leva em conta o relevo é o Longley-Rice e o mesmo apresentou os melhores resultados. Como esperado, as regiões densamente povoadas, como centros urbanos, possuem um grau de disponibilidade muito baixo, ou seja, uma grande quantidade de usuários primários estão utilizando os canais. Porém, diferentemente dos outros modelos, o raio das antenas é menor, reduzindo assim o desperdício de canais livres. As áreas rurais por sua vez, possuem uma ampla quantidade de canais livres para uso.
+Dentre os modelos apresentados, o único que leva em conta o relevo é o Longley-Rice e o mesmo apresentou um mapa plausível. Como esperado, as regiões densamente povoadas, como centros urbanos, possuem um grau de disponibilidade muito baixo, ou seja, uma grande quantidade de usuários primários estão utilizando os canais. Porém, diferentemente dos outros modelos, o raio das antenas é menor, reduzindo assim o desperdício de canais livres. As áreas rurais por sua vez, possuem uma ampla quantidade de canais livres para uso.
 
 Dos modelos estudados nesse trabalho, o modelo a ser utilizado por uma BDWS deve ser o Longley-Rice, modelo utilizado oficialmente pela FCC para cobertura de antenas de TV~\cite{fcclongleyrice}.
 
